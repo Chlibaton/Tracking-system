@@ -120,7 +120,7 @@ header.m-header {
     color: white;
 }
 
-.row.t-row>.t-row-2.col-md-4>p {
+.row.t-row>.t-row-2.col-md-7>p {
     text-align: center;
     color: #000304;
     font-family: Arial;
@@ -190,7 +190,7 @@ button.btn.mt-3.btn-secondary.btn-block {
     margin: auto;
     background: #1a75bc;
     border: 1px solid #1a75bc;
-    color: black;
+    color: white;
     font-weight: 500;
 }
 
@@ -253,6 +253,10 @@ p.l-row-address>span:nth-child(2) {
     color: #e83530;
 }
 
+.t-row-2.col-md-7 {
+    margin: auto;
+}
+
 </style>
 
 
@@ -272,20 +276,44 @@ p.l-row-address>span:nth-child(2) {
         <b-container class="vy-main-cont">
             <b-row class="t-row">
                 <b-col md="5" offset-md="7"><p v-b-modal.modal-1> Login to your account </p></b-col>
-                <b-col md="4" class="t-row-2"><p>Tracking System</p></b-col>
+                <b-col md="7" class="t-row-2"><p>Get updates on your orders!</p></b-col>
             </b-row>
             <b-row class="m-row">
                 <b-col md="7" class="t-row-2">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="videos/VYD_Home_Video.mp4" allowfullscreen></iframe>
+                    <div>
+                        <b-carousel
+                            id="carousel-1" :interval="7000" controls indicators background="#ababab" img-width="1024" img-height="480" style="text-shadow: 1px 1px 2px #333;">
+
+                            <!-- Slides with custom text -->
+                            <b-carousel-slide img-src="img/FT_1.jpg">
+                                <p style="font-size: 26px;">The wax impression of each ring is carefully check, clean and resize to its proper size and weight before costing.</p>
+                            </b-carousel-slide>
+
+                              <b-carousel-slide img-src="img/FT_2.jpg">
+                                <p style="font-size: 26px;">The process of setting a stone in the ring. All stones are meticulously selected to ensures same sizes and quality.</p>
+                            </b-carousel-slide>
+
+                              <b-carousel-slide img-src="img/FT_3.jpg">
+                                <p style="font-size: 26px;">Rings are being checked carefully to ensure that all spellings and wordings are correct before smithing.</p>
+                            </b-carousel-slide>
+
+                            <b-carousel-slide img-src="img/FT_4.jpg">
+                                <p style="font-size: 26px;">Details as to size diameter and proper placement of inserts are accurately done.</p>
+                            </b-carousel-slide>
+                              
+                            <b-carousel-slide img-src="img/FT_5.jpg">
+                                <p style="font-size: 26px;">Soldering inserts in the shank are manually done to make sure that inserts are correctly positioned.</p>
+                            </b-carousel-slide>
+
+                            <b-carousel-slide img-src="img/FT_6.jpg">
+                                <p style="font-size: 26px;">The process of creating / producing of mother mold to ensure the accurate output of the exact weight, dimension, size and wordings in the ring.</p>
+                            </b-carousel-slide>
+
+                            </b-carousel>
                     </div>
                 </b-col>
                 <b-col md="5" class="t-row-2">
-                    <img src="img/tracking-img.jpg" alt="">
-                </b-col>
-            </b-row>
-            <b-row class="m-row-2">
-                 <b-col class="m-desc"><p>Welcome to V.Y.Domingo Jewellers Incorporated.<br>
+                     <b-col class="m-desc"><p>Welcome to V.Y.Domingo Jewellers Incorporated.<br>
                     World famous for customized and personalized Jewelry.<br>
                     We are the largest manufacturer ,supplier and exporter of Class Rings, Military Rings, Corporate Award Jewelry,<br>
                     Name Jewelry and Championship/Sports Rings from the Philippines to the whole World.<br>
@@ -295,30 +323,10 @@ p.l-row-address>span:nth-child(2) {
                     and Best Quality Assurance !<br>
                     Quality and Service is our Mission !<br>
                     Customer Satisfaction is our GOAL!</p></b-col>
-            </b-row>
-            <b-row>
-                <div class="gradient-divider"></div>
-            </b-row>
-            <b-row class="l-row">
-                <b-col>
-                    <div class="l-sm-form">
-                        <p class="l-row-address-2">
-                            <span for="address">Send Us A Message</span>
-                        </p>
-                         <form>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email">
-                            </div>
-                            <div class="form-group message-area">
-                                <textarea class="form-control" placeholder="Message" rows="10"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Submit</b-button>
-                            </div>
-                         </form>
-                    </div>
                 </b-col>
-                <div class="divider"></div>
+            </b-row>
+           
+            <b-row class="l-row">
                 <b-col class="contact-info">
                     <div>
                         <p class="l-row-address">
