@@ -21,6 +21,7 @@ class JOFORDER extends Migration
             $table->string('date_prepared')->nullable();
             $table->string('due_date')->nullable();
             $table->string('jof_status')->nullable();
+            $table->string('active_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

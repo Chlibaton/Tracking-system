@@ -153,7 +153,7 @@ img.preview {
                 if(response.data.length > 0){
                     for(var a = 0; a<response.data.length; a++){
                     var b = response.data[a]['jof_status']
-                    if(b == 'Delivered'){
+                    if(b == 'Done'){
                     this.jofData.Delivered.push(response.data[a])
                     }else{
                       this.jofData.Pending.push(response.data[a])

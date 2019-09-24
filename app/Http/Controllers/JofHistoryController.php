@@ -15,9 +15,9 @@ class JofHistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        
     }
 
     /**
@@ -28,14 +28,21 @@ class JofHistoryController extends Controller
     public function create(array $data)
     {
         return jofhistory::create([
+            'joforderid'=>$data['id'],
             'jofno' => $data['jofno'],
             'kind_of_ring' => $data['kind_of_ring'],
-            'event_time' => Carbon::now('+08:00')->isoFormat('MMMM D YYYY HH:MM'),
+            'event_time' => Carbon::now('GMT+8:00')->isoFormat('MMMM D YYYY HH:mm'),
             'jof_status' => $data['jof_status'],
         ]);
+        
     }
     public function jofhistory(Request $request){
         $result = $this->create($request->all());
+        return $result;
+    }
+
+    public function getJOF($id){
+        $result = jofhistory::where('joforderid',$id)->get()->all();
         return $result;
     }
 

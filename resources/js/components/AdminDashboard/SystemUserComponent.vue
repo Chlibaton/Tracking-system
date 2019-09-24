@@ -74,7 +74,7 @@
       show1:false,
       inset: false,
       password: '',
-      departments:['Receiving Section','Mold Section','Casting Section','Stone Section','Finishing Section','Sales Officer','Releasing'],
+      departments:['Receiving Section','Mold Section','Casting Section','Stone Section','Finishing Section','Sales Officer'],
       headers: [
         { text: 'First Name', value: 'first_name', },
         { text: 'Last Name', value: 'last_name', },
@@ -157,9 +157,9 @@
               case 'Finishing Section':
                   this.editedItem.role = 8
                 break;
-              case 'Releasing':
-                  this.editedItem.role = 10
-                break;
+              // case 'Releasing':
+              //     this.editedItem.role = 10
+              //   break;
             }
               if (this.editedIndex > -1) {
                   this.toBeUpdated = this.dataItems[this.editedIndex]

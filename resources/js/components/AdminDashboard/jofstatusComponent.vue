@@ -62,20 +62,24 @@ img.preview {
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-spacer></v-spacer>
+      <v-dialog v-model="tracking">
+            <v-data-table :headers="trackingHeader" :items="trackingItems" class="elevation-1" loading="true">
+            </v-data-table>
+        </v-dialog>
       </v-toolbar>
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
         <template v-slot:top>
           <div class="radiOPTS">
             <input type="radio" name="optradio" v-on:click="displayData('All')" :checked='radiobtns.pending'><label class=' bg-primary textpads'>Pending JOF Order</label>
-            <input type="radio" name="optradio" v-on:click="displayData('Delivered')" :checked='radiobtns.delivered'> <label class='bg-success textpads'>Delivered</label>
+            <input type="radio" name="optradio" v-on:click="displayData('Done')" :checked='radiobtns.delivered'> <label class='bg-success textpads'>Done</label>
           </div>
         </template>
           <template v-slot:item.due_date="{ item }" > 
-            <v-chip v-if="item.jof_status == 'Delivered'"> {{ item.due_date }}</v-chip> 
-            <v-chip v-if="item.jof_status != 'Delivered'"  :class="getColor(item.due_date)" > {{ item.due_date }}</v-chip> 
+            <v-chip v-if="item.jof_status == 'Done'"> {{ item.due_date }}</v-chip> 
+            <v-chip v-if="item.jof_status != 'Done'"  :class="getColor(item.due_date)" > {{ item.due_date }}</v-chip> 
         </template>
-        <template v-slot:item.payment_tracking="{ item }">
-          <v-icon small class="mr-2" @click="trackingPayment(item)" > View</v-icon>
+         <template v-slot:item.jofaction="{ item }">
+          <v-chip v-on:click="getJOFhistory(item)"> JOF HISTORY</v-chip> 
         </template>
          
   </v-data-table>
@@ -86,6 +90,7 @@ img.preview {
   export default {
     data: () => ({
       search: '',
+      tracking:false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
         { text: 'Customer Name', value: 'customer_name',  },
@@ -93,8 +98,17 @@ img.preview {
         { text: 'Date Prepared', value: 'date_prepared',  },
         { text: 'Due Date', value: 'due_date',  },
         { text: 'JOF Status', value: 'jof_status', },
+        { text: 'Actions',value: 'jofaction', sortable: false },
+
+      ],
+      trackingHeader:[
+        { text: 'JOF#', value: 'jofno',  },
+        { text: 'Kind of Ring', value: 'kind_of_ring',  },
+        { text: 'Event Date', value: 'event_time',  },
+        { text: 'JOF Status', value: 'jof_status', },
       ],
       dataItems:[],
+      trackingItems:[],
       jofData:{
           Delivered:[],
           Pending:[],
@@ -108,6 +122,9 @@ img.preview {
     computed: {
    
     },
+      dialog (val) {
+        val || this.close()
+      },
 
     async mounted(){
           axios.get('/api/JOFPending')
@@ -139,7 +156,7 @@ img.preview {
         displayData(a){
         //radio button when clicked. shows only data needed
         switch(a){
-          case 'Delivered':
+          case 'Done':
               this.radiobtns.delivered = true
               this.radiobtns.pending = false
               this.dataItems = this.jofData.Delivered
@@ -170,6 +187,13 @@ img.preview {
                  }
           })
       
+      },
+      getJOFhistory(item){
+        this.tracking = true
+            axios.get('/api/getJOF/'+item.id)
+          .then((response)=>{
+                this.trackingItems = response.data
+          })
       }
 
     },

@@ -59,12 +59,12 @@ class JOFController extends Controller
     }
     public function JOFPending()
     { 
-        $result = joforder::where('jof_status','!=','Delivered')->orderBy('due_date','asc')->get()->all();
+        $result = joforder::where('jof_status','!=','Done')->orderBy('due_date','asc')->get()->all();
         return $result;  
     }
     public function JOFDelivered()
     { 
-        $result = joforder::where('jof_status','Delivered')->orderBy('due_date','asc')->get()->all();
+        $result = joforder::where('jof_status','Done')->orderBy('due_date','asc')->get()->all();
         return $result;  
     }
     public function ExportPDF($id){
@@ -152,6 +152,7 @@ class JOFController extends Controller
             ->take(1)
             ->update([
                 'jof_status' =>$request->jof_status,
+                'active_date' =>Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-D'),
                 ]);
         return 'success';
     }

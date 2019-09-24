@@ -92,7 +92,7 @@ img.preview {
           </template>
          <template v-slot:item.jofaction="{ item }">
             <div class="my-2">
-              <v-btn depressed small color="primary" @click="jofActions(item)">FOR RELEASING</v-btn>
+              <v-btn depressed small color="primary" @click="jofActions(item)">DONE</v-btn>
                <v-btn depressed small color="error" @click="editItem(item)">RETURN JOF</v-btn>
             </div>
         </template>
@@ -153,7 +153,7 @@ img.preview {
         // else return 'green'
       },
       jofActions(item){
-        item.jof_status = 'For Releasing'
+        item.jof_status = 'Done'
          axios.post('/api/JOFupdateStatus/',item)
             .then(()=>{
                axios.post('/api/jofhistory',item)

@@ -8,7 +8,6 @@ const mold = require('./components/AdminDashboard/moldComponent.vue').default;
 const casting = require('./components/AdminDashboard/castingComponent.vue').default;
 const stone = require('./components/AdminDashboard/stoneComponent.vue').default;
 const finishing = require('./components/AdminDashboard/finishingComponent.vue').default;
-const releasing = require('./components/AdminDashboard/releasingComponent.vue').default;
 
 const jofstatus = require('./components/AdminDashboard/jofstatusComponent.vue').default;
 const jofexport = require('./components/AdminDashboard/JOFexportComponent.vue').default;
@@ -62,11 +61,6 @@ export default{
         { path: '/finishing', name:'finishing', component: finishing, 
         meta: { 
             title: "finishing" 
-            } 
-        },
-        { path: '/releasing', name:'releasing', component: releasing, 
-        meta: { 
-            title: "releasing" 
             } 
         },
         { path: '/jofstatus', name:'jofstatus', component: jofstatus, 

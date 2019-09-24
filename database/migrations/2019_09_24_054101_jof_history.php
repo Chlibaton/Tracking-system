@@ -15,6 +15,7 @@ class JofHistory extends Migration
     {
         Schema::create('jof_history', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('joforderid')->nullable();
             $table->string('jofno')->nullable();
             $table->string('kind_of_ring')->nullable();
             $table->string('event_time')->nullable();
