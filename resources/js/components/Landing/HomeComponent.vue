@@ -4,7 +4,7 @@ header.m-header>.m-h-img>img {
     max-width: 100%;
 }
 header.m-header {
-    background-image: linear-gradient(to right, #fff138 30%, #e83530);
+    background-color: #1a75bc;
 }
 header.m-header {
     display: flex;
@@ -16,6 +16,8 @@ header.m-header {
 .m-title {
     text-align: center;
     margin-top: 10px;
+    margin: auto;
+    color: white !important;
 }
 .m-title>p>ul {
     display: inline-flex;
@@ -24,16 +26,17 @@ header.m-header {
 }
 .m-title>p:nth-child(1) {
     font-family: Century;
-    font-size: 40px;
+    font-size: 58px;
 }
 .m-title>p:nth-child(2) {
     margin-right: 30px;
-    font-size: 20px;
+    font-size: 26px;
     font-family: Century;
 }
 .m-title>p:nth-child(3) {
     font-family: Century;
     font-weight: bold;
+    font-size: 20px;
     margin-top: 5px !important;
 
 }
@@ -106,8 +109,9 @@ header.m-header {
     }
 }
 .container {
+    border-top: 2px Solid gray;
     max-width: 100%;
-    background: black;
+    background: white;
 }
 
 
@@ -117,7 +121,8 @@ header.m-header {
 }
 
 .row.t-row>.t-row-2.col-md-4>p {
-    color: #DDA354;
+    text-align: center;
+    color: #000304;
     font-family: Arial;
     font-size: 30px;
     font-weight: bold;
@@ -129,7 +134,7 @@ header.m-header {
 .form-header {
     padding: 8px !important;
     margin: 15px -15px;
-    background: #FCBD11;
+    background: #1a75bc;
     text-align: center;
     font-size: 29px;
 }
@@ -163,43 +168,46 @@ input.form-control {
     text-align: center;
 }
 
+.t-row-2.col-md-5>img {
+    border-radius: 30px;
+}
 .row.t-row>.col-md-5.offset-md-7>p {
     display: inline;
-    color: white;
+    color: black;
     border: 1px solid;
     padding: 10px;
-    border-radius: 20px;
 }
 
 .row.t-row>.col-md-5.offset-md-7>p:hover {
-    color: black;
-    background: white;
-    border: 1px solid #FCBD11;
+    color: white;
+    background: #1a75bc;
+    border: 1px solid #1a75bc;
     cursor: pointer;
 }
 
 button.btn.mt-3.btn-secondary.btn-block {
     width: 125px;
     margin: auto;
-    background: #FCBD11;
-    border: 1px solid #FCBD11;
+    background: #1a75bc;
+    border: 1px solid #1a75bc;
     color: black;
     font-weight: 500;
 }
 
 .m-desc.col>p {
     text-align: center;
-    color: white;
+    color: black;
     margin: 30px 30px;
     font-size: 20px;
 }
-
 .gradient-divider {
     background-image: linear-gradient(black, #a2a2a2);
     padding: 10px;
     width: 100%;
 }
-
+.t-row-2.col-md-5 {
+    margin: auto;
+}
 .divider {
     color: grey;
     background: grey;
@@ -215,17 +223,17 @@ p.l-row-address-2 {
     text-align: center;
 }
 p.l-row-address-2>span {
-    color: white;
+   color: black;
     font-size: 26px;
     font-weight: bold;
 }
 p.l-row-address>span:nth-child(1) {
-    color: white;
+    color: black;
     font-size: 24px;
 }
 
 p.l-row-address>span:nth-child(2) {
-    color: white;
+   color: black;
 }
 
 .l-sm-form>form {
@@ -263,65 +271,17 @@ p.l-row-address>span:nth-child(2) {
         </header>
         <b-container class="vy-main-cont">
             <b-row class="t-row">
-                <b-col md="5" offset-md="7"><p v-b-modal.modal-1>Already have an account? Login</p></b-col>
+                <b-col md="5" offset-md="7"><p v-b-modal.modal-1> Login to your account </p></b-col>
                 <b-col md="4" class="t-row-2"><p>Tracking System</p></b-col>
             </b-row>
             <b-row class="m-row">
                 <b-col md="7" class="t-row-2">
-                    <!-- <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/8EFp46Bw6MA?autoplay=1&loop=1&playlist=8EFp46Bw6MA&mute=1" allowfullscreen></iframe>
-                    </div> -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="videos/VYD_Home_Video.mp4" allowfullscreen></iframe>
+                    </div>
                 </b-col>
                 <b-col md="5" class="t-row-2">
-                    <form>
-                        <div class="form-header">Create an account to apply for Jewelry Easy Installment Plan</div>
-                        <div class="form-row">
-                            <div class="col">
-                                <input type="text" v-model="signUpDetails.first_name" class="form-control" placeholder="First name">
-                            </div> 
-                            <div class="col">
-                                <input type="text" v-model="signUpDetails.last_name" class="form-control" placeholder="Last name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" v-model="signUpDetails.organization_name" class="form-control" placeholder="Orgranization Name">
-                        </div>
-                        <div class="form-group">
-                           <input type="email" v-model="signUpDetails.email" class="form-control" placeholder="Email">
-                           <span class="help-block" v-if="RegisterEmailErr">
-                                    {{RegisterEmailMsg}}
-                            </span>
-                        </div>
-                        <div class="form-group">
-                           <input type="password" v-model="signUpDetails.password" class="form-control" placeholder="Password">
-                           <span class="help-block" v-if="RegisterPasswordErr">
-                                    {{RegisterPasswordMsg}}
-                            </span>
-                        </div>
-                        <div class="form-group">
-                           <input type="password" v-model="signUpDetails.password_confirmation" class="form-control" placeholder="Confirm Password">
-                        </div>
-                        <div class="form-group">
-                            <b-button class="mt-3" block @click="signUpPost()">Register</b-button>
-                        </div>
-
-                        <b-modal hide-footer id="modal-1" title="Login">
-                            <div class="form-group">
-                                <input v-model="loginDetails.email" type="email" class="form-control" placeholder="Email ">
-                                <span class="help-block" v-if="errorsEmail">
-                                        {{emailError}}
-                                </span>
-                            </div>
-                            <div class="form-group">
-                                <input v-model="loginDetails.password" type="password" class="form-control" placeholder="Password">
-                                <span class="help-block" v-if="errorsPassword">
-                                    {{passwordError}}
-                                </span>
-                            </div>
-                                <label for="forgot-password">Forgot Password?</label>
-                            <b-button class="mt-3" block @click="login()">Login</b-button>
-                        </b-modal>
-                    </form>
+                    <img src="img/tracking-img.jpg" alt="">
                 </b-col>
             </b-row>
             <b-row class="m-row-2">
