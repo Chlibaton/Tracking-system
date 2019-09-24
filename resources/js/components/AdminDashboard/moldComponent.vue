@@ -116,7 +116,7 @@ img.preview {
     methods: {
        getColor (item) {      
           const duedate = new Date(item.due_date),
-          activedate = new Date(item.active_date),
+          activedate = new Date(new Date(new Date(item.active_date).getTime()+(120*24*2*30*1000)).toISOString().substr(0, 10)),
           datenow =  new Date(new Date().getTime()+(120*24*7*59*1000)).toISOString().substr(0, 10)
           // derived date
         var dateObj = new Date();
@@ -127,9 +127,10 @@ img.preview {
           month = '0'+month
         }
         var newdate = year + "-" + month + "-" + day;
-          console.log(newdate)
+        console.log(activedate)
+        console.log(newdate)
         if (new Date(datenow) > duedate) return 'trans'
-        if (new Date(newdate) != activedate) return 'transgreen'
+        else if (new Date(newdate) >= activedate) return 'transgreen'
         else return 'none'
         // else return 'green'
       },
