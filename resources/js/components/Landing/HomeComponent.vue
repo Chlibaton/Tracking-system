@@ -325,7 +325,22 @@ p.l-row-address>span:nth-child(2) {
                     Customer Satisfaction is our GOAL!</p></b-col>
                 </b-col>
             </b-row>
-           
+           <b-modal hide-footer id="modal-1" title="Login">
+                            <div class="form-group">
+                                <input v-model="loginDetails.email" type="email" class="form-control" placeholder="Email ">
+                                <span class="help-block" v-if="errorsEmail">
+                                        {{emailError}}
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input v-model="loginDetails.password" type="password" class="form-control" placeholder="Password">
+                                <span class="help-block" v-if="errorsPassword">
+                                    {{passwordError}}
+                                </span>
+                            </div>
+                                <label for="forgot-password">Forgot Password?</label>
+                            <b-button class="mt-3" block @click="login()">Login</b-button>
+                        </b-modal>
             <b-row class="l-row">
                 <b-col class="contact-info">
                     <div>
@@ -360,6 +375,7 @@ export default {
                 email: '',
                 password: '',
                 remember: false
+
             },
               signUpDetails:{
                 first_name: '',
