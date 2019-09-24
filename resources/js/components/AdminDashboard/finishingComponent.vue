@@ -115,7 +115,8 @@ img.preview {
         { text: 'JOF Status', value: 'jof_status', },
          { text: 'JOF ACTION', value: 'jofaction', sortable: false },
       ],
-      Status:['Mold Section','Plastic Section','Wax Section','Casting Section','Salugar Section','Stone Section'],
+      // Status:['Mold Section','Plastic Section','Wax Section','Casting Section','Salugar Section','Stone Section'],
+      Status:['Mold Section','Casting Section','Stone Section'],
       dataItems:[],
       editedItem:{},
       editedStatus:'',
@@ -155,9 +156,12 @@ img.preview {
         item.jof_status = 'For Releasing'
          axios.post('/api/JOFupdateStatus/',item)
             .then(()=>{
-                axios.get('/api/JOFinit/8')
+               axios.post('/api/jofhistory',item)
                   .then((response)=>{
-                      this.dataItems = response.data
+                        axios.get('/api/JOFinit/8')
+                        .then((response)=>{
+                            this.dataItems = response.data
+                        })
                   })
               })
             .catch(error => {

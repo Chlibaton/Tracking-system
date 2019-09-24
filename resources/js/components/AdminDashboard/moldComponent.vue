@@ -65,7 +65,7 @@ img.preview {
           </template>
          <template v-slot:item.jofaction="{ item }">
             <div class="my-2">
-              <v-btn depressed small color="primary" @click="jofActions(item)">MOVE TO PLASTIC</v-btn>
+              <v-btn depressed small color="primary" @click="jofActions(item)">MOVE TO CASTING</v-btn>
             </div>
         </template>
   </v-data-table>
@@ -108,12 +108,15 @@ img.preview {
       },
 
       jofActions(item){
-        item.jof_status = 'Plastic Section'
+        item.jof_status = 'Casting Section'
          axios.post('/api/JOFupdateStatus/',item)
             .then(()=>{
-                axios.get('/api/JOFinit/2')
+               axios.post('/api/jofhistory',item)
                   .then((response)=>{
-                      this.dataItems = response.data
+                        axios.get('/api/JOFinit/2')
+                        .then((response)=>{
+                            this.dataItems = response.data
+                        })
                   })
               })
             .catch(error => {

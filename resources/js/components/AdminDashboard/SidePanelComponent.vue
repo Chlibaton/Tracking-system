@@ -11,15 +11,6 @@
         font-size: 16px !important;
     }
    
-    .navContent{
-        /* border-width: 6px 0px 0px 0px;
-        border-style: solid;
-        border-color: white;
-        margin-bottom: 0px !important;
-        position: relative;
-        top: 24px;
-        padding: 10px */
-    }
     .main-container {
         padding: 0px 0px 0px 0px !important;
         margin: 0px;
@@ -183,7 +174,7 @@
             <v-list-item-title class='navList'>Mold Section</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="role==0 || role==3" class='navContent' href='/plastic'>
+        <!-- <v-list-item v-if="role==0 || role==3" class='navContent' href='/plastic'>
           <v-list-item-content>
             <v-list-item-title class='navList'>Plastic Section</v-list-item-title>
           </v-list-item-content>
@@ -192,7 +183,7 @@
           <v-list-item-content>
             <v-list-item-title class='navList'>Wax Section</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
 
            <v-list-item v-if="role==0 || role==5" class='navContent' href='/casting'>
           <v-list-item-content>
@@ -200,11 +191,11 @@
           </v-list-item-content>
         </v-list-item>
 
-           <v-list-item v-if="role==0 || role==6" class='navContent' href='/salugar'>
+           <!-- <v-list-item v-if="role==0 || role==6" class='navContent' href='/salugar'>
           <v-list-item-content>
             <v-list-item-title class='navList'>Salugar Section</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
 
           <v-list-item v-if="role==0 || role==7" class='navContent' href='/stone'>
           <v-list-item-content>
@@ -230,7 +221,7 @@
           </v-list-item-content>
         </v-list-item>
 
-          <v-list-item class='navContent' href='/jofexport'>
+          <v-list-item class='navContent' v-if="role==0 || role==1" href='/jofexport'>
           <v-list-item-content>
             <v-list-item-title class='navList'>Export JOF Status</v-list-item-title>
           </v-list-item-content>

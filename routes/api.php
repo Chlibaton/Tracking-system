@@ -36,3 +36,9 @@ Route::get('/JOFstatus','JOFController@JOFstatus');
 
 Route::get('/exportpdf/{id}','JOFController@ExportPDF');
 
+Route::get('/JOFPending','JOFController@JOFPending');
+Route::get('/JOFDelivered','JOFController@JOFDelivered');
+
+// JOF History
+Route::post('/jofhistory','JofHistoryController@jofhistory');
+

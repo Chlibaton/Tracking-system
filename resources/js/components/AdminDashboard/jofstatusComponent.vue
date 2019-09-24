@@ -66,8 +66,8 @@ img.preview {
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
         <template v-slot:top>
           <div class="radiOPTS">
-            <input type="radio" name="optradio" v-on:click="displayData('All')" checked><label class=' bg-primary textpads'>Pending JOF Order</label>
-            <input type="radio" name="optradio" v-on:click="displayData('Delivered')"> <label class='bg-success textpads'>Delivered</label>
+            <input type="radio" name="optradio" v-on:click="displayData('All')" :checked='radiobtns.pending'><label class=' bg-primary textpads'>Pending JOF Order</label>
+            <input type="radio" name="optradio" v-on:click="displayData('Delivered')" :checked='radiobtns.delivered'> <label class='bg-success textpads'>Delivered</label>
           </div>
         </template>
           <template v-slot:item.due_date="{ item }" > 
@@ -97,7 +97,11 @@ img.preview {
       dataItems:[],
       jofData:{
           Delivered:[],
-          Pending:[]
+          Pending:[],
+      },
+      radiobtns:{
+        pending:true,
+        delivered:false
       }
     }),
     
@@ -106,24 +110,20 @@ img.preview {
     },
 
     async mounted(){
-        axios.get('/api/JOFstatus')
-        .then((response)=>{
-                if(response.data.length > 0){
-                    for(var a = 0; a<response.data.length; a++){
-                    var b = response.data[a]['jof_status']
-                    if(b == 'Delivered'){
-                    this.jofData.Delivered.push(response.data[a])
-                    }else{
-                      this.jofData.Pending.push(response.data[a])
-                    }
-                }
-                this.dataItems =  this.jofData.Pending
-                console.log(this.dataItems)
-            }else{
-                this.dataItems = response.data
-            }
-        })
+          axios.get('/api/JOFPending')
+          .then((response)=>{
+                this.jofData.Pending = response.data
+                this.dataItems =  response.data
+          })
+           axios.get('/api/JOFDelivered')
+          .then((response)=>{
+                this.jofData.Delivered = response.data
+          })
+          setInterval(function(){
+            this.liveReload()
+          }.bind(this), 5000);
     },
+ 
 //methods
 
     methods: {
@@ -140,12 +140,36 @@ img.preview {
         //radio button when clicked. shows only data needed
         switch(a){
           case 'Delivered':
+              this.radiobtns.delivered = true
+              this.radiobtns.pending = false
               this.dataItems = this.jofData.Delivered
             break;
           case 'All':
+              this.radiobtns.pending = true
+              this.radiobtns.delivered = false
               this.dataItems = this.jofData.Pending
             break;
         }
+          console.log(this.radiobtns)
+
+      },
+      liveReload(){
+        console.log('test')
+          axios.get('/api/JOFPending')
+          .then((response)=>{
+                this.jofData.Pending = response.data
+                 if(this.radiobtns.pending == true){
+                  this.dataItems = response.data
+                }
+          })
+           axios.get('/api/JOFDelivered')
+          .then((response)=>{
+                this.jofData.Delivered = response.data
+                if(this.radiobtns.delivered == true){
+                this.dataItems = response.data
+                 }
+          })
+      
       }
 
     },
