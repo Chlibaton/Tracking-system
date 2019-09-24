@@ -83,9 +83,9 @@ img.preview {
                     <v-text-field v-model="editedItem.kind_of_ring" label="Kind Of Ring"></v-text-field>
                   </v-flex>
                   <v-flex xs6>
-                            <v-menu v-model="menu1" :close-on-content-click="false" full-width max-width="290" offset-y >
+                            <v-menu   v-model="menu1" :close-on-content-click="false" full-width min-width="290px" offset-y >
                               <template v-slot:activator="{ on }">
-                                <v-text-field clearable readonly label="Date Prepared" v-on="on"  :value="date1"></v-text-field>
+                                <v-text-field clearable prepend-icon="event" readonly label="Date Prepared" v-on="on"  :value="date1"></v-text-field>
                               </template>
                               <v-date-picker v-model="date1">
                               </v-date-picker>
@@ -95,7 +95,7 @@ img.preview {
                     <!-- <v-text-field v-model="editedItem.due_date" label="Due Date"></v-text-field> -->
                             <v-menu v-model="menu2"  :close-on-content-click="false" full-width max-width="290" offset-y >
                               <template v-slot:activator="{ on }">
-                                <v-text-field clearable readonly label="Due Date" v-on="on"  :value="date2"></v-text-field>
+                                <v-text-field clearable prepend-icon="event" readonly label="Due Date" v-on="on"  :value="date2"></v-text-field>
                               </template>
                               <v-date-picker v-model="date2" >
                               </v-date-picker>
@@ -163,7 +163,8 @@ img.preview {
       toBeUpdated:{},
       mask: '################',
       date1:new Date().toISOString().substr(0, 10),
-      date2:new Date(new Date().getTime()+(120*24*60*60*1000)).toISOString().substr(0, 10),
+      date2:new Date().toISOString().substr(0, 10),
+      // date2:new Date(new Date().getTime()+(120*24*60*60*1000)).toISOString().substr(0, 10),
     }),
     
     computed: {
@@ -264,9 +265,12 @@ img.preview {
         item.jof_status = 'Mold Section'
          axios.post('/api/JOFupdateStatus/',item)
             .then(()=>{
-                axios.get('/api/JOFinit/1')
+                axios.post('/api/jofhistory',item)
                   .then((response)=>{
-                      this.dataItems = response.data
+                        axios.get('/api/JOFinit/1')
+                        .then((response)=>{
+                            this.dataItems = response.data
+                        })
                   })
               })
             .catch(error => {

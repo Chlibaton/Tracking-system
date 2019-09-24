@@ -74,8 +74,7 @@
       show1:false,
       inset: false,
       password: '',
-      departments:['Receiving Section','Mold Section','Plastic Section','Wax Section',
-      'Casting Section','Salugar Section','Stone Section','Finishing Section','Sales Officer','Releasing'],
+      departments:['Receiving Section','Mold Section','Casting Section','Stone Section','Finishing Section','Sales Officer','Releasing'],
       headers: [
         { text: 'First Name', value: 'first_name', },
         { text: 'Last Name', value: 'last_name', },
@@ -143,32 +142,20 @@
      async save () {
         if(this.$refs.form.validate()){
             switch(this.editedItem.organization_name){
-              case 'Receiving Section':
+              case 'Sales Officer':
                   this.editedItem.role = 1
                 break;
               case 'Mold Section':
                   this.editedItem.role = 2
                 break;
-              case 'Plastic Section':
-                  this.editedItem.role = 3
-                break;
-              case 'Wax Section':
-                  this.editedItem.role = 4
-                break;
               case 'Casting Section':
                   this.editedItem.role = 5
-                break;
-              case 'Salugar Section':
-                  this.editedItem.role = 6
                 break;
               case 'Stone Section':
                   this.editedItem.role = 7
                 break;
               case 'Finishing Section':
                   this.editedItem.role = 8
-                break;
-              case 'Sales Officer':
-                  this.editedItem.role = 9
                 break;
               case 'Releasing':
                   this.editedItem.role = 10

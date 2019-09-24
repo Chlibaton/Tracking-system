@@ -93,7 +93,7 @@ img.preview {
           </template>
          <template v-slot:item.jofaction="{ item }">
             <div class="my-2">
-              <v-btn depressed small color="primary" @click="jofActions(item)">MOVE TO SALUGAR</v-btn>
+              <v-btn depressed small color="primary" @click="jofActions(item)">MOVE TO STONE</v-btn>
                <v-btn depressed small color="error" @click="editItem(item)">RETURN JOF</v-btn>
             </div>
         </template>
@@ -116,7 +116,8 @@ img.preview {
         { text: 'JOF Status', value: 'jof_status', },
          { text: 'JOF ACTION', value: 'jofaction', sortable: false },
       ],
-      Status:['Mold Section','Plastic Section','Wax Section'],
+      // Status:['Mold Section','Plastic Section','Wax Section'],
+      Status:['Mold Section'],
       dataItems:[],
       editedItem:{},
       editedStatus:'',
@@ -153,12 +154,15 @@ img.preview {
         // else return 'green'
       },
       jofActions(item){
-        item.jof_status = 'Salugar Section'
+        item.jof_status = 'Stone Section'
          axios.post('/api/JOFupdateStatus/',item)
             .then(()=>{
-                axios.get('/api/JOFinit/5')
+               axios.post('/api/jofhistory',item)
                   .then((response)=>{
-                      this.dataItems = response.data
+                        axios.get('/api/JOFinit/5')
+                        .then((response)=>{
+                            this.dataItems = response.data
+                        })
                   })
               })
             .catch(error => {

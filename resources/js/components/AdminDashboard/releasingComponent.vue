@@ -108,9 +108,12 @@ img.preview {
         item.jof_status = 'Delivered'
          axios.post('/api/JOFupdateStatus/',item)
             .then(()=>{
-                axios.get('/api/JOFinit/10')
+               axios.post('/api/jofhistory',item)
                   .then((response)=>{
-                      this.dataItems = response.data
+                        axios.get('/api/JOFinit/10')
+                        .then((response)=>{
+                            this.dataItems = response.data
+                        })
                   })
               })
             .catch(error => {

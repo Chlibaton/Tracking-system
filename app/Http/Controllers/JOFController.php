@@ -57,6 +57,16 @@ class JOFController extends Controller
         $result = joforder::orderBy('due_date','asc')->get()->all();
         return $result;  
     }
+    public function JOFPending()
+    { 
+        $result = joforder::where('jof_status','!=','Delivered')->orderBy('due_date','asc')->get()->all();
+        return $result;  
+    }
+    public function JOFDelivered()
+    { 
+        $result = joforder::where('jof_status','Delivered')->orderBy('due_date','asc')->get()->all();
+        return $result;  
+    }
     public function ExportPDF($id){
         $joforder = joforder::where('date_prepared','>=',$id)->get()->all();
         $date = Carbon::now();
