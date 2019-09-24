@@ -74,7 +74,7 @@
       show1:false,
       inset: false,
       password: '',
-      departments:['Receiving Section','Mold Section','Casting Section','Stone Section','Finishing Section','Sales Officer'],
+      departments:['Sales Officer','Mold Section','Casting Section','Stone Section','Finishing Section'],
       headers: [
         { text: 'First Name', value: 'first_name', },
         { text: 'Last Name', value: 'last_name', },
