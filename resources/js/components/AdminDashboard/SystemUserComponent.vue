@@ -74,7 +74,7 @@
       show1:false,
       inset: false,
       password: '',
-      departments:['Sales Officer','Mold Section','Casting Section','Stone Section','Finishing Section'],
+      departments:['Sales Officer','Receiving Section','Mold Section','Casting Section','Stone Section','Finishing Section'],
       headers: [
         { text: 'First Name', value: 'first_name', },
         { text: 'Last Name', value: 'last_name', },
@@ -143,6 +143,9 @@
         if(this.$refs.form.validate()){
             switch(this.editedItem.organization_name){
               case 'Sales Officer':
+                  this.editedItem.role = 9
+                break;
+              case 'Receiving Section':
                   this.editedItem.role = 1
                 break;
               case 'Mold Section':
@@ -157,9 +160,7 @@
               case 'Finishing Section':
                   this.editedItem.role = 8
                 break;
-              // case 'Releasing':
-              //     this.editedItem.role = 10
-              //   break;
+
             }
               if (this.editedIndex > -1) {
                   this.toBeUpdated = this.dataItems[this.editedIndex]
@@ -169,7 +170,6 @@
                         // handle error
                         console.log(error);
                     })
-                    //  Object.assign(this.dataItems[this.editedIndex], this.editedItem)
 
                 } else {
                     this.addedItems = this.editedItem

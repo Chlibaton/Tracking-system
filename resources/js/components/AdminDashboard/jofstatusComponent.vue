@@ -78,6 +78,9 @@ img.preview {
             <v-chip v-if="item.jof_status == 'Done'"> {{ item.due_date }}</v-chip> 
             <v-chip v-if="item.jof_status != 'Done'"  :class="getColor(item.due_date)" > {{ item.due_date }}</v-chip> 
         </template>
+         <template v-slot:item.view_details="{ item }" > 
+            <v-chip>View Details</v-chip> 
+        </template>
          <template v-slot:item.jofaction="{ item }">
           <v-chip v-on:click="getJOFhistory(item)"> JOF HISTORY</v-chip> 
         </template>
@@ -93,12 +96,14 @@ img.preview {
       tracking:false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
+        { text: 'Distributor Name', value: 'distributor_name',  },
         { text: 'Customer Name', value: 'customer_name',  },
         { text: 'Kind of Ring', value: 'kind_of_ring',  },
         { text: 'Date Prepared', value: 'date_prepared',  },
         { text: 'Due Date', value: 'due_date',  },
         { text: 'JOF Status', value: 'jof_status', },
-        { text: 'Actions',value: 'jofaction', sortable: false },
+        { text: 'View Details', value: 'view_details', },
+        { text: 'JOF History',value: 'jofaction', sortable: false },
 
       ],
       trackingHeader:[
