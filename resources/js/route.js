@@ -34,7 +34,7 @@ export default{
             title: "System User" 
             }
         },
-        { path: '/', name:'superadmin', component: superAdmin, 
+        { path: '/', name:'superadmin', component: jofstatus, 
         meta: { 
             title: "Dashboard" 
             } 
