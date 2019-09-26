@@ -25,10 +25,12 @@ Route::put('/userupdate','UserController@update');
 Route::delete('/userdelete/{id}','UserController@destroy');
 
 // JOF Order
-Route::get('/JOFinit/{id}','JOFController@index');
+// Route::get('/JOFinit/{id}','JOFController@index');
 Route::post('/JOFcreate','JOFController@create');
 Route::put('/JOFupdate','JOFController@update');
 Route::delete('/JOFdelete/{id}','JOFController@destroy');
+// get number series
+Route::get('/getSeries','JOFController@getSeries');
 
 Route::post('/JOFupdateStatus','JOFController@updateStatus');
 

@@ -63,6 +63,9 @@ img.preview {
     background-color: #3e9430;
   }
 }
+.remarks{
+  color:white;
+}
 
 </style>
 
@@ -79,6 +82,11 @@ img.preview {
           <template v-slot:item.due_date="{ item }" > 
             <v-chip :class="getColor(item)" > {{ item.due_date }}</v-chip> 
           </template>
+            <template v-slot:item.remarks="{ item }">
+            <div class="my-2">
+               <v-chip v-if='item.remarks==1' class="bg-info remarks" > Remolding</v-chip> 
+            </div>
+        </template>
          <template v-slot:item.jofaction="{ item }">
             <div class="my-2">
               <v-btn depressed small color="primary" @click="jofActions(item)">MOVE TO CASTING</v-btn>
@@ -94,11 +102,13 @@ img.preview {
       search: '',
       headers: [
         { text: 'JOF#', value: 'jofno',  },
+        { text: 'Distributor Name', value: 'distributor_name',  },
         { text: 'Customer Name', value: 'customer_name',  },
         { text: 'Kind of Ring', value: 'kind_of_ring',  },
         { text: 'Date Prepared', value: 'date_prepared',  },
         { text: 'Due Date', value: 'due_date',  },
         { text: 'JOF Status', value: 'jof_status', },
+        { text: 'Remarks', value: 'remarks', },
          { text: 'JOF ACTION', value: 'jofaction', sortable: false },
       ],
       dataItems:[],
@@ -106,8 +116,9 @@ img.preview {
 
 
     async mounted(){
-        axios.get('/api/JOFinit/2')
+        axios.get('/JOFinit/2')
         .then((response)=>{
+          console.log(response.data)
             this.dataItems = response.data
         })
     },
@@ -137,11 +148,12 @@ img.preview {
 
       jofActions(item){
         item.jof_status = 'Casting Section'
+        item.remarks = 0
          axios.post('/api/JOFupdateStatus/',item)
             .then(()=>{
                axios.post('/api/jofhistory',item)
                   .then((response)=>{
-                        axios.get('/api/JOFinit/2')
+                        axios.get('/JOFinit/2')
                         .then((response)=>{
                             this.dataItems = response.data
                         })

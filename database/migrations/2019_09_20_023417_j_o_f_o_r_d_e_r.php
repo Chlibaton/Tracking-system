@@ -15,11 +15,32 @@ class JOFORDER extends Migration
     {
         Schema::create('JOFORDER', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('refno')->nullable();
+            $table->string('orderno')->nullable();
             $table->string('jofno')->nullable();
+            $table->string('distributor_name')->nullable();
             $table->string('customer_name')->nullable();
-            $table->string('kind_of_ring')->nullable();
+            $table->string('trackingno')->nullable();
             $table->string('date_prepared')->nullable();
             $table->string('due_date')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('kind_of_ring')->nullable();
+            $table->string('metal')->nullable();
+            $table->string('ring_size')->nullable();
+            $table->string('year')->nullable();
+            $table->string('karat')->nullable();
+            $table->string('text_style')->nullable();
+            $table->string('quantity')->nullable();
+            $table->string('stone')->nullable();
+            $table->string('bridge')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('oxidation')->nullable();
+            $table->string('inside_engrave')->nullable();
+            $table->string('left_shank')->nullable();
+            $table->string('top_shank')->nullable();
+            $table->string('right_shank')->nullable();
+            $table->string('upload_image')->nullable();
+            $table->string('remarks')->default(0);
             $table->string('jof_status')->nullable();
             $table->string('active_date')->nullable();
             $table->rememberToken();

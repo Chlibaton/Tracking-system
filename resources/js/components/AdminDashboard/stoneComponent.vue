@@ -62,6 +62,10 @@ img.preview {
     background-color: #3e9430;
   }
 }
+.remarks{
+  color:white;
+}
+
 
 </style>
 
@@ -106,6 +110,11 @@ img.preview {
            <template v-slot:item.due_date="{ item }" > 
             <v-chip  :class="getColor(item)" > {{ item.due_date }}</v-chip> 
           </template>
+            <template v-slot:item.remarks="{ item }">
+            <div class="my-2">
+               <v-chip v-if='item.remarks==1' class="bg-info remarks" > Repair Stone</v-chip> 
+            </div>
+        </template>
          <template v-slot:item.jofaction="{ item }">
             <div class="my-2">
               <v-btn depressed small color="primary" @click="jofActions(item)">MOVE TO FINISHING</v-btn>
@@ -124,11 +133,13 @@ img.preview {
       search: '',
       headers: [
         { text: 'JOF#', value: 'jofno',  },
+        { text: 'Distributor Name', value: 'distributor_name',  },
         { text: 'Customer Name', value: 'customer_name',  },
         { text: 'Kind of Ring', value: 'kind_of_ring',  },
         { text: 'Date Prepared', value: 'date_prepared',  },
         { text: 'Due Date', value: 'due_date',  },
         { text: 'JOF Status', value: 'jof_status', },
+        { text: 'Remarks', value: 'remarks', },
          { text: 'JOF ACTION', value: 'jofaction', sortable: false },
       ],
       // Status:['Mold Section','Plastic Section','Wax Section','Casting Section','Salugar Section'],
@@ -152,7 +163,7 @@ img.preview {
     },
 
     async mounted(){
-        axios.get('/api/JOFinit/7')
+        axios.get('/JOFinit/7')
         .then((response)=>{
             this.dataItems = response.data
         })
@@ -182,11 +193,12 @@ img.preview {
       },
       jofActions(item){
         item.jof_status = 'Finishing Section'
+        item.remarks = 0
          axios.post('/api/JOFupdateStatus/',item)
             .then(()=>{
                 axios.post('/api/jofhistory',item)
                   .then((response)=>{
-                        axios.get('/api/JOFinit/7')
+                        axios.get('/JOFinit/7')
                         .then((response)=>{
                             this.dataItems = response.data
                         })
@@ -212,9 +224,10 @@ img.preview {
         console.log(this.editedStatus)
         if(this.editedStatus != ''){
           this.editedItem.jof_status = this.editedStatus
+          this.editedItem.remarks = 1
           axios.post('/api/JOFupdateStatus/',this.editedItem)
             .then(()=>{
-                axios.get('/api/JOFinit/7')
+                axios.get('/JOFinit/7')
                   .then((response)=>{
                       this.dataItems = response.data
                   })

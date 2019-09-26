@@ -62,9 +62,60 @@ img.preview {
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-spacer></v-spacer>
+      <!-- Modal Tracking -->
       <v-dialog v-model="tracking">
             <v-data-table :headers="trackingHeader" :items="trackingItems" class="elevation-1" loading="true">
             </v-data-table>
+        </v-dialog>
+      <!-- Modal JOF Details -->
+        <v-dialog v-model="details">
+              <v-card>
+              <v-card-title>
+                <span class="headline">JOF Details</span>
+                <v-flex xs11></v-flex>
+                <v-btn color="primary" dark class="mb-2">PRINT</v-btn>
+              </v-card-title>
+              
+
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                   <v-flex xs12>Kind of Ring: <label>{{detailItems.kind_of_ring}}</label></v-flex>
+                   <v-flex xs6>Metal: <label>{{detailItems.metal}}</label></v-flex>
+                    <v-flex xs6>Stone: <label>{{detailItems.stone}}</label></v-flex>
+                    <v-flex xs6>Ring Size: <label>{{detailItems.ring_size}}</label></v-flex>
+                    <v-flex xs6>Bridge: <label>{{detailItems.bridge}}</label></v-flex>
+                    <v-flex xs6>Year: <label>{{detailItems.year}}</label></v-flex>
+                    <v-flex xs6>Weight: <label>{{detailItems.weight}}</label></v-flex>
+                    <v-flex xs6>Karat: <label>{{detailItems.karat}}</label></v-flex>
+                    <v-flex xs6>Oxidation: <label>{{detailItems.oxidation}}</label></v-flex>
+                    <v-flex xs6>Text Style: <label>{{detailItems.text_style}}</label></v-flex>
+                    <v-flex xs6>Inside Engrave: <label>{{detailItems.inside_engrave}}</label></v-flex>
+                    <v-flex xs6>Quantity: <label>{{detailItems.quantity}}</label></v-flex>
+                   <!-- Shanks -->
+                    <v-flex xs12>
+                      <v-card>
+                        <v-card-title>
+                            <span class="headline">Shanks</span>
+                          </v-card-title>
+                          <v-card-text>
+                            <v-container grid-list-md>
+                                <v-layout wrap>
+                                    <v-flex xs4><label>LEFT SHANK</label></v-flex>
+                                    <v-flex xs4><label>TOP SHANK</label></v-flex>
+                                    <v-flex xs4><label>RIGHT SHANK</label></v-flex>
+                                     <v-flex xs4><label>{{detailItems.left_shank}}</label></v-flex>
+                                    <v-flex xs4><label>{{detailItems.top_shank}}</label></v-flex>
+                                    <v-flex xs4><label>{{detailItems.right_shank}}</label></v-flex>
+                                </v-layout>
+                            </v-container>
+                          </v-card-text>
+                      </v-card>
+                    </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+          </v-card>
         </v-dialog>
       </v-toolbar>
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
@@ -77,6 +128,9 @@ img.preview {
           <template v-slot:item.due_date="{ item }" > 
             <v-chip v-if="item.jof_status == 'Done'"> {{ item.due_date }}</v-chip> 
             <v-chip v-if="item.jof_status != 'Done'"  :class="getColor(item.due_date)" > {{ item.due_date }}</v-chip> 
+        </template>
+         <template v-slot:item.view_details="{ item }" > 
+            <v-chip v-on:click="getDetails(item)">View Details</v-chip> 
         </template>
          <template v-slot:item.jofaction="{ item }">
           <v-chip v-on:click="getJOFhistory(item)"> JOF HISTORY</v-chip> 
@@ -91,14 +145,17 @@ img.preview {
     data: () => ({
       search: '',
       tracking:false,
+      details:false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
+        { text: 'Order#', value: 'orderno',  },
+        { text: 'Distributor Name', value: 'distributor_name',  },
         { text: 'Customer Name', value: 'customer_name',  },
-        { text: 'Kind of Ring', value: 'kind_of_ring',  },
         { text: 'Date Prepared', value: 'date_prepared',  },
         { text: 'Due Date', value: 'due_date',  },
         { text: 'JOF Status', value: 'jof_status', },
-        { text: 'Actions',value: 'jofaction', sortable: false },
+        { text: 'View Details', value: 'view_details', },
+        { text: 'JOF History',value: 'jofaction', sortable: false },
 
       ],
       trackingHeader:[
@@ -108,6 +165,7 @@ img.preview {
         { text: 'JOF Status', value: 'jof_status', },
       ],
       dataItems:[],
+      detailItems:[],
       trackingItems:[],
       jofData:{
           Delivered:[],
@@ -167,11 +225,9 @@ img.preview {
               this.dataItems = this.jofData.Pending
             break;
         }
-          console.log(this.radiobtns)
 
       },
       liveReload(){
-        console.log('test')
           axios.get('/api/JOFPending')
           .then((response)=>{
                 this.jofData.Pending = response.data
@@ -194,6 +250,10 @@ img.preview {
           .then((response)=>{
                 this.trackingItems = response.data
           })
+      },
+      getDetails(item){
+        this.details=true
+        this.detailItems = item
       }
 
     },

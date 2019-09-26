@@ -3,6 +3,7 @@ const systemUser = require('./components/AdminDashboard/SystemUserComponent.vue'
 const superAdmin = require('./components/AdminDashboard/SuperAdminComponent.vue').default;
 
 // departments
+const joforder = require('./components/AdminDashboard/JOForderComponent.vue').default;
 const receiving = require('./components/AdminDashboard/receivingComponent.vue').default;
 const mold = require('./components/AdminDashboard/moldComponent.vue').default;
 const casting = require('./components/AdminDashboard/castingComponent.vue').default;
@@ -41,9 +42,14 @@ export default{
             title: "System User" 
             }
         },
-        { path: '/', name:'superadmin', component: superAdmin, 
+        { path: '/', name:'superadmin', component: jofstatus, 
         meta: { 
             title: "Dashboard" 
+            } 
+        },
+        { path: '/joforder', name:'joforder', component: joforder, 
+        meta: { 
+            title: "JOF Order" 
             } 
         },
         { path: '/receiving', name:'receiving', component: receiving, 

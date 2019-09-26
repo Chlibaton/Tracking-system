@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\joforder;
+use App\numberseries;
 use PDF;
 use Carbon\Carbon;
 
@@ -47,8 +48,15 @@ class JOFController extends Controller
                 $status = "For Releasing";
                 break; 
            }
-       
-        $result = joforder::where('jof_status',$status)->orderBy('id','desc')->get()->all();
+        if(Auth::user()->role ==9){
+            $salesOfficerName = Auth::user()->first_name.' '.Auth::user()->last_name;
+            $result = joforder::where('jof_status',$status)
+            ->where('created_by',$salesOfficerName)
+            ->orderBy('id','desc')->get()->all();
+        }else{
+            $result = joforder::where('jof_status',$status)
+            ->orderBy('id','desc')->get()->all();
+        }
         return $result;
         
     }
@@ -83,6 +91,7 @@ class JOFController extends Controller
      */
     public function create(Request $request)
     {
+
         $result = joforder::create($request->all());
         return $result;
     }
@@ -152,8 +161,29 @@ class JOFController extends Controller
             ->take(1)
             ->update([
                 'jof_status' =>$request->jof_status,
+                'remarks' =>$request->remarks,
                 'active_date' =>Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-D'),
                 ]);
         return 'success';
+    }
+    
+    public function getSeries(){
+        $getSeries = numberseries::get();
+        $incrementno = $getSeries[0]['incrementno'] + 1;
+        $checkexists = numberseries::where('incrementno',$incrementno)->first();
+        if(!$checkexists){
+            $updateseries = numberseries::where('id','1')->update([
+                'incrementno' =>$incrementno,
+                ]);;
+            $result = numberseries::get();
+        }else{
+            $incrementno = $getSeries[0]['incrementno'] + 2;
+            $updateseries = numberseries::where('id','1')->update([
+                'incrementno' =>$incrementno,
+                ]);;
+            $result = numberseries::get();
+        }
+      
+        return $result;
     }
 }

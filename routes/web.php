@@ -20,6 +20,8 @@ Auth::routes();
 
 // Route::post('/register', 'Auth\RegisterController@register');
 
+Route::get('/getUser ', 'UserController@getUser');
+Route::get('/JOFinit/{id}','JOFController@index');
 Route::get('/logout ', 'UserController@logout');
 Route::get('/userrole ', 'UserController@userrole');
 Route::get('/home ', 'HomeController@index')->name('home');

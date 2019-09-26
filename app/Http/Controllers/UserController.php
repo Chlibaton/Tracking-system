@@ -92,6 +92,9 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/');
     }
+    public function getUser(Request $request){
+        return Auth::user();
+    }
    
 
     /**
