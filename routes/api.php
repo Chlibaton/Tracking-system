@@ -44,3 +44,4 @@ Route::post('/jofhistory','JofHistoryController@jofhistory');
 Route::get('/getJOF/{id}','JofHistoryController@getJOF');
 Route::get('/getJOFAll/{id}','JofHistoryController@index');
 
+

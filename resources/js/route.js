@@ -14,6 +14,9 @@ const jofexport = require('./components/AdminDashboard/JOFexportComponent.vue').
 
 const changepass = require('./components/UserSide/ChangePasswordComponent.vue').default;
 const landingPage = require('./components/Landing/HomeComponent.vue').default;
+const registerPage = require('./components/Landing/RegisterComponent.vue').default;
+
+
 
 export default{
     mode:'history',
@@ -26,7 +29,12 @@ export default{
         { path: '/vy-installment', name:'home', component: landingPage, 
         meta: { 
             title: "Home Page" 
-         }
+        }
+         },
+        { path: '/user-register', name:'register', component: registerPage, 
+         meta: { 
+             title: "Register Page" 
+        }
         }, 
         { path: '/systemuser', name:'systemuser', component: systemUser, 
         meta: { 
