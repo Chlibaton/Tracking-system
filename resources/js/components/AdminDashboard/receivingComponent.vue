@@ -48,7 +48,12 @@ img.preview {
     background-color: #e50000;
   }
 }
-
+.not_special{
+   background-color: #e0e0e000 !important;
+}
+.bg-dark {
+    color: #ffc107 !important;
+}
 </style>
 
 
@@ -61,12 +66,25 @@ img.preview {
       <v-spacer></v-spacer>
       </v-toolbar>
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
+         <template v-slot:item.jofno="{ item }" > 
+            <v-chip v-if="item.sp_order==1" class="bg-dark" > {{ item.jofno }}</v-chip> 
+            <v-chip v-else class="not_special"> {{ item.jofno }}</v-chip> 
+          </template>
            <template v-slot:item.due_date="{ item }" > 
             <v-chip :class="getColor(item.due_date)" > {{ item.due_date }}</v-chip> 
           </template>
          <template v-slot:item.jofaction="{ item }">
             <div class="my-2">
-              <v-btn depressed small color="primary" @click="jofActions(item)">MOVE TO MOLD</v-btn>
+              <v-btn v-if="item.sp_order==0" depressed small color="primary" @click="jofActions(item)">MOVE TO MOLD</v-btn>
+            </div>
+            <div class="my-2" v-if="item.sp_approve==0">
+              <v-btn v-if="item.sp_order==1" @click="specialOrder(item,1)" depressed small color="primary">Approve</v-btn>
+            </div>
+             <div class="my-2" v-if="item.sp_approve==0">
+              <v-btn v-if="item.sp_order==1" @click="specialOrder(item,2)" depressed small color="red">Decline</v-btn>
+            </div>
+             <div class="my-2" v-if="item.sp_approve==2">
+              <v-btn v-if="item.sp_order==1" depressed small color="red">Order Declined</v-btn>
             </div>
         </template>
   </v-data-table>
@@ -167,6 +185,31 @@ img.preview {
               return 'green'
             break
         }
+      },
+      specialOrder(item,status){
+        item.sp_approve = status
+        switch(status){
+          case 1:
+            item.jof_status = 'Mold Section'
+            break;
+          case 2:
+            item.jof_status = 'Receiving Section'
+            break;
+        }
+          axios.post('/api/JOFupdateStatus/',item)
+            .then(()=>{
+                axios.post('/api/jofhistory',item)
+                  .then((response)=>{
+                        axios.get('/JOFinit/1')
+                        .then((response)=>{
+                            this.dataItems = response.data
+                        })
+                  })
+              })
+            .catch(error => {
+              console.log(error.message);
+            })
+
       },
        
     },

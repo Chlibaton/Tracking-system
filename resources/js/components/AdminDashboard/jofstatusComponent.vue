@@ -104,6 +104,12 @@ img.preview {
     background-color: #28a745;
   }
 }
+.not_special{
+   background-color: #e0e0e000 !important;
+}
+.bg-dark {
+    color: #ffc107 !important;
+}
 
 </style>
 
@@ -322,6 +328,10 @@ img.preview {
             <label class='bg-danger textpads'>7 Day Due Date</label>
           </div>
         </template>
+            <template v-slot:item.jofno="{ item }" > 
+            <v-chip v-if="item.sp_order==1" class="bg-dark" > {{ item.jofno }}</v-chip> 
+            <v-chip v-else class="not_special"> {{ item.jofno }}</v-chip> 
+          </template>
           <template v-slot:item.due_date="{ item }" > 
             <v-chip v-if="item.jof_status == 'Done'"> {{ item.due_date }}</v-chip> 
             <v-chip v-if="item.jof_status != 'Done'"  :class="getColor(item)" > {{ item.due_date }}</v-chip> 

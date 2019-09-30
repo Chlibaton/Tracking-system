@@ -236,6 +236,7 @@ class JOFController extends Controller
             ->take(1)
             ->update([
                 'jof_status' =>$request->jof_status,
+                'sp_approve' =>$request->sp_approve,
                 'remarks' =>$request->remarks,
                 'active_date' =>Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-D'),
                 ]);
