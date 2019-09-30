@@ -535,6 +535,7 @@ class ComposerStaticInit6003c13d7a72743c9eaae61ec5497f9c
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\JOFController' => __DIR__ . '/../..' . '/app/Http/Controllers/JOFController.php',
+        'App\\Http\\Controllers\\JofFormController' => __DIR__ . '/../..' . '/app/Http/Controllers/JofFormController.php',
         'App\\Http\\Controllers\\JofHistoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/JofHistoryController.php',
         'App\\Http\\Controllers\\RealtimeJOF' => __DIR__ . '/../..' . '/app/Http/Controllers/RealtimeJOF.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',

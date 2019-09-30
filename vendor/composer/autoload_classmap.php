@@ -17,6 +17,7 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\JOFController' => $baseDir . '/app/Http/Controllers/JOFController.php',
+    'App\\Http\\Controllers\\JofFormController' => $baseDir . '/app/Http/Controllers/JofFormController.php',
     'App\\Http\\Controllers\\JofHistoryController' => $baseDir . '/app/Http/Controllers/JofHistoryController.php',
     'App\\Http\\Controllers\\RealtimeJOF' => $baseDir . '/app/Http/Controllers/RealtimeJOF.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',

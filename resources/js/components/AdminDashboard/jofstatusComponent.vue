@@ -73,10 +73,7 @@ img.preview {
               <v-card-title>
                 <span class="headline">JOF Details</span>
                 <v-flex xs11></v-flex>
-                <v-btn color="primary" dark class="mb-2">PRINT</v-btn>
               </v-card-title>
-              
-
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
@@ -117,6 +114,148 @@ img.preview {
             </v-card-text>
           </v-card>
         </v-dialog>
+        <!-- Modal JOF Details End -->
+
+
+<!-- Modal JOF Details -->
+        <v-dialog v-model="jof_form">
+      <v-btn color="primary" @click.native="print">Print</v-btn>
+        <div class="container-fluid" id="printjof">
+        <div class="card">
+            <div class="card-header">
+              Order Details
+            </div>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6 order-no">
+                        </div>
+                        <div class="col-6 jof-no-div">
+                            <div><span class="jof-no">JOF#: {{detailItems.jofno}}</span></div>
+                            <div><span class="due-date">Due Date : {{detailItems.due_date}}</span></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-2 order-details">
+                            <div>Distributor: </div> 
+                            <div>Customer Name:</div> 
+                            <div>Order Name:</div> 
+                        </div>
+                        <div class="col-4 order-details">
+                            <div>{{detailItems.distributor_name}}</div>
+                            <div>{{detailItems.customer_name}}</div>
+                            <div>{{detailItems.orderno}}</div>
+
+                        </div>
+                        <div class="col-2 order-details">
+                            <div>Date Prepared: </div> 
+                            <div>Due Date:</div> 
+                            <div>Prepared By:</div> 
+                        </div>
+                        <div class="col-4 order-details">
+                            <div>{{detailItems.date_prepared}}</div>
+                            <div>{{detailItems.due_date}}</div>
+                            <div>{{detailItems.created_by}}</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-2 order-details">
+                            <div>Kind : </div> 
+                        </div>
+                        <div class="col-4 order-details">
+                            <div>{{detailItems.kind_of_ring}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 ring-details">
+                            <div>Metal :</div> 
+                            <div>Ring Size :</div> 
+                            <div>Year :</div> 
+                            <div>Karat :</div> 
+                            <div>Text Style :</div> 
+                        </div>
+                        <div class="col-4 ring-details">
+                            <div>{{detailItems.metal}}</div>
+                            <div>{{detailItems.ring_size}}</div>
+                            <div>{{detailItems.year}}</div>
+                            <div>{{detailItems.karat}}</div>
+                            <div>{{detailItems.text_style}}</div>
+                        </div>
+                        <div class="col-2 ring-details">
+                            <div>Stone : </div> 
+                            <div>Weight :</div> 
+                            <div>Oxidation :</div>
+                            <div>Inside Engrave :</div>
+                        </div>
+                        <div class="col-4 ring-details">
+                            <div>{{detailItems.stone}}</div>
+                            <div>{{detailItems.weight}}</div>
+                            <div>{{detailItems.oxidation}}</div>
+                            <div>{{detailItems.inside_engrave}}</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row shank-details-hdr">
+                        <div class="col shanks-details">
+                         Left Shank
+                        </div>
+                        <div class="col shanks-details">
+                         Top Details
+                        </div>
+                        <div class="col shanks-details">
+                         Right Shank
+                        </div>
+                    </div>
+                    <div class="row shank-details-body">
+                        <div class="col shanks-details">
+                        {{detailItems.left_shank}}
+                        </div>
+                        <div class="col shanks-details">
+                         {{detailItems.top_shank}}
+                        </div>
+                        <div class="col shanks-details">
+                         {{detailItems.right_shank}}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row ring-att">
+                        <div class="col remarks">Remarks: See Attach Artwork</div>
+                    </div>
+                    <div class="row ring-attachment">
+                        <div class="col-2"></div>
+                        <div class="col-8 ring-img"><img src="https://www.brianwhiter.com.au/wp-content/uploads/2017/10/Forest-1200x500-c-default.jpg" class="img-fluid" alt="Ring Image"></div>
+                        <div class="col-2"></div>
+                    </div>
+                    <br><br>
+                    <div class="row foot-remarks">
+                        <div class="col">
+                            <div>Receiving</div>
+                            <div>Mould</div>
+                            <div>Plastic</div>
+                            <div>Metal</div>
+                            <div>Wax</div>
+                            <div>Treeing</div>
+                            <div>Casting</div>
+                        </div>
+                        <div class="col">
+                            <div>Smithing</div>
+                            <div>Pre-Polishing</div>
+                            <div>Stone Setting</div>
+                            <div>Final Polish</div>
+                            <div>Finishing</div>
+                            <div>Dispatching</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
+        </v-dialog>
+        <!-- Modal JOF Details End -->
+
+
       </v-toolbar>
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
         <template v-slot:top>
@@ -130,7 +269,7 @@ img.preview {
             <v-chip v-if="item.jof_status != 'Done'"  :class="getColor(item.due_date)" > {{ item.due_date }}</v-chip> 
         </template>
          <template v-slot:item.view_details="{ item }" > 
-            <v-chip v-on:click="getDetails(item)">View Details</v-chip> 
+            <v-chip v-on:click="openJOF(item)">View JOF</v-chip> 
         </template>
          <template v-slot:item.jofaction="{ item }">
           <v-chip v-on:click="getJOFhistory(item)"> JOF HISTORY</v-chip> 
@@ -146,6 +285,7 @@ img.preview {
       search: '',
       tracking:false,
       details:false,
+      jof_form: false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
         { text: 'Order#', value: 'orderno',  },
@@ -254,8 +394,39 @@ img.preview {
       getDetails(item){
         this.details=true
         this.detailItems = item
-      }
+        console.log(this.detailItems.jofno)
+      },
+      openJOF(item) {
+        this.jof_form = true
+        this.detailItems = item
+      },
+      print(){
+        const prtHtml = document.getElementById('printjof').innerHTML;
 
+        // Get all stylesheets HTML
+        let stylesHtml = '';
+        for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
+        stylesHtml += node.outerHTML;
+        }
+
+        // Open the print window
+        const WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+
+        WinPrint.document.write(`<!DOCTYPE html>
+        <html>
+        <head>
+            ${stylesHtml}
+        </head>
+        <body>
+            ${prtHtml}
+        </body>
+        </html>`);
+
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+      }
     },
    
    

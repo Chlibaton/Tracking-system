@@ -12,6 +12,8 @@ const finishing = require('./components/AdminDashboard/finishingComponent.vue').
 
 const jofstatus = require('./components/AdminDashboard/jofstatusComponent.vue').default;
 const jofexport = require('./components/AdminDashboard/JOFexportComponent.vue').default;
+const jofform = require('./components/AdminDashboard/JOFFormComponent.vue').default;
+
 
 const changepass = require('./components/UserSide/ChangePasswordComponent.vue').default;
 const landingPage = require('./components/Landing/HomeComponent.vue').default;
@@ -50,6 +52,11 @@ export default{
         { path: '/joforder', name:'joforder', component: joforder, 
         meta: { 
             title: "JOF Order" 
+            } 
+        },
+        { path: '/jofform', name:'jofform', component: jofform, 
+        meta: { 
+            title: "JOF Form" 
             } 
         },
         { path: '/receiving', name:'receiving', component: receiving, 
