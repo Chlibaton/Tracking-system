@@ -222,9 +222,9 @@
           </v-list-item-content>
         </v-list-item>
 
-          <v-list-item class='navContent' v-if="role==0 || role==1" href='/jofexport'>
+        <v-list-item class='navContent' v-if="role==0 || role==1" href='/jofexport'>
           <v-list-item-content>
-            <v-list-item-title class='navList'>Export JOF Status</v-list-item-title>
+            <v-list-item-title class='navList'>7-Day Due Status</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
        

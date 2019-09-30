@@ -44,16 +44,10 @@
                             <td>
                                 {{$jof->date_prepared}}
                             </td>
-                        @if($datesevendays->diffInDays($jof->due_date, false) < 0)
                             <td class="text-danger">
                                    <strong> {{$jof->due_date}} </strong>
                             </td>
-                        @else
-                            <td>
-                                    {{$jof->due_date}}
-                            </td>
-                        @endif
-
+                    
                         </tr>
                     @endforeach   
                 </tbody>

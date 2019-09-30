@@ -10,6 +10,9 @@ use App\numberseries;
 use PDF;
 use Carbon\Carbon;
 
+use App\Events\JOFStatus;
+
+
 class JOFController extends Controller
 {
     /**
@@ -75,10 +78,11 @@ class JOFController extends Controller
         $result = joforder::where('jof_status','Done')->orderBy('due_date','asc')->get()->all();
         return $result;  
     }
-    public function ExportPDF($id){
-        $joforder = joforder::where('date_prepared','>=',$id)->get()->all();
-        $date = Carbon::now();
-        $datesevendays = $date->addDays(7);
+    public function ExportPDF(){
+        $datenow = Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-DD');
+        $datesevendays = Carbon::now('GMT+8:00')->addDays(7)->isoFormat('YYYY-MM-DD');
+        $joforder = joforder::whereBetween('due_date',[$datenow,$datesevendays])->orderBy('due_date','asc')->get()->all();
+
         $pdf = PDF::loadView('pdf', compact('joforder','datesevendays'));
          return $pdf->download('JOFOrder.pdf');
         // return view('pdf',['joforder'=>$joforder,'datesevendays'=>$datesevendays]);
@@ -91,8 +95,42 @@ class JOFController extends Controller
      */
     public function create(Request $request)
     {
+        event(new JOFStatus('event on update'));
+        // $result = joforder::create($request->all());
+        // return $result;
+        if($request->upload_image !== null) {
+            $exploded = explode(',',$request->upload_image);
+            $decoded = base64_decode($exploded[1]);
+            if(str_contains($exploded[0],'jpeg'))
+            {
+                $extension = 'jpg';
+            }
+            else
+            {
+                $extension = 'png';
+            }
 
-        $result = joforder::create($request->all());
+            if(joforder::where('upload_image', $request->upload_image)->exists())
+                $result = false;
+            else {
+                //generate random strings
+                $length= 10;
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $charactersLength = strlen($characters);
+                $randomString = '';
+                for ($i = 0; $i < $length; $i++) {
+                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                }
+                // set all details
+                $filename = $randomString.'.'.$extension;
+                $path = public_path().'/img/artwork/'.$filename;
+                file_put_contents($path,$decoded);    
+                $result = joforder::create($request->except('upload_image') + ['upload_image' => $filename]);
+            }
+        }
+        else {
+            $result = joforder::create($request->all());
+        }
         return $result;
     }
 
@@ -139,8 +177,43 @@ class JOFController extends Controller
      */
     public function update(Request $request)
     {
-        $result = joforder::where('id', $request->id)->update($request->all());
-        return 'success';
+        // $result = joforder::where('id', $request->id)->update($request->all());
+        // return 'success';
+        if($request->upload_image !== null) {
+            if(joforder::where('upload_image', $request->upload_image)->exists())
+                $result = joforder::where('id', $request->id)->update($request->except('upload_image') + ['upload_image' => $request->upload_image]);
+            else {
+                $exploded = explode(',',$request->upload_image);
+                $decoded = base64_decode($exploded[1]);
+                if(str_contains($exploded[0],'jpeg'))
+                {
+                    $extension = 'jpg';
+                }
+                else
+                {
+                    $extension = 'png';
+                }
+
+                //generate random strings
+                $length= 10;
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $charactersLength = strlen($characters);
+                $randomString = '';
+                for ($i = 0; $i < $length; $i++) {
+                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                }
+                // set all details
+                $filename = $randomString.'.'.$extension;
+                $path = public_path().'/img/artwork/'.$filename;
+                file_put_contents($path,$decoded);    
+                $result = joforder::where('id', $request->id)->update($request->except('upload_image') + ['upload_image' => $filename]);
+            }
+        }
+        else {
+            $result = joforder::where('id', $request->id)->update($request->all());
+        }
+        event(new JOFStatus('event on update'));
+        return $result;
     }
 
     /**
@@ -151,11 +224,13 @@ class JOFController extends Controller
      */
     public function destroy($id)
     {
+        event(new JOFStatus('event on update'));
         $result = joforder::where('id',$id)->delete();
         return 'Deleted';
     }
 
     public function updateStatus(Request $request){
+        event(new JOFStatus('event on update'));
         joforder::where('id', $request->id)
             ->orderby('id', 'desc')
             ->take(1)
@@ -185,5 +260,11 @@ class JOFController extends Controller
         }
       
         return $result;
+    }
+    public function sevenDueDate(){
+        $datenow = Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-DD');
+        $datesevendays = Carbon::now('GMT+8:00')->addDays(7)->isoFormat('YYYY-MM-DD');
+        $result = joforder::whereBetween('due_date',[$datenow,$datesevendays])->orderBy('due_date','asc')->get()->all();
+        return $result;  
     }
 }

@@ -46,6 +46,42 @@ img.preview {
     background-color: #e50000;
   }
 }
+/* 2 DAYS */
+.transyellow{
+  -webkit-animation: YELLOW-ANIMATION 1s infinite;  /* Safari 4+ */
+  -moz-animation: YELLOW-ANIMATION 1s infinite;  /* Fx 5+ */
+  -o-animation: YELLOW-ANIMATION 1s infinite;  /* Opera 12+ */
+  animation: YELLOW-ANIMATION 1s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@keyframes YELLOW-ANIMATION {
+  0%, 49% {
+    background-color: transparent;
+    /* border: 3px solid #e50000; */
+  }
+  50%, 100% {
+    background-color: #ffc107;
+  }
+}
+/* 4DAYS */
+.transblue{
+  -webkit-animation: BLUE-ANIMATION 1s infinite;  /* Safari 4+ */
+  -moz-animation: BLUE-ANIMATION 1s infinite;  /* Fx 5+ */
+  -o-animation: BLUE-ANIMATION 1s infinite;  /* Opera 12+ */
+  animation: BLUE-ANIMATION 1s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@keyframes BLUE-ANIMATION {
+  0%, 49% {
+    background-color: transparent;
+    /* border: 3px solid #e50000; */
+  }
+  50%, 100% {
+    background-color: #17a2b8;
+  }
+}
+
+/* 6 days */
 .transgreen{
   -webkit-animation: GREEN-ANIMATION 1s infinite;  /* Safari 4+ */
   -moz-animation: GREEN-ANIMATION 1s infinite;  /* Fx 5+ */
@@ -59,7 +95,7 @@ img.preview {
     /* border: 3px solid #e50000; */
   }
   50%, 100% {
-    background-color: #3e9430;
+    background-color: #28a745;
   }
 }
 .remarks{
@@ -107,7 +143,14 @@ img.preview {
       <!--END  ADD JOF MODAL -->
       </v-toolbar>
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
-
+        <template v-slot:top>
+          <div class="radiOPTS">
+            <label class=' bg-warning textpads'>2 Days Delay</label>
+            <label class='bg-info textpads'>4 Days Delay</label>
+            <label class='bg-success textpads'>6+ Days Delay</label>
+            <label class='bg-danger textpads'>7 Day Due Date</label>
+          </div>
+        </template>
             <template v-slot:item.due_date="{ item }" > 
             <v-chip :class="getColor(item)" > {{ item.due_date }}</v-chip> 
           </template>
@@ -168,14 +211,29 @@ img.preview {
         .then((response)=>{
             this.dataItems = response.data
         })
+
+        Echo.channel('jofstatus')
+        .listen('JOFStatus', (e) => {
+             axios.get('/JOFinit/5')
+              .then((response)=>{
+                  this.dataItems = response.data
+              })
+        });
     },
 //methods
 
     methods: {
-        getColor (item) {      
+            getColor (item) {
+         var date_diff_indays = function(date1, date2) {
+            var dt1 = new Date(date1);
+            var dt2 = new Date(date2);
+            return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+            }
+            // console.log(date_diff_indays('04/02/2014', '11/04/2014'));
+
           const duedate = new Date(item.due_date),
-          activedate = new Date(new Date(new Date(item.active_date).getTime()+(120*24*2*30*1000)).toISOString().substr(0, 10)),
-          datenow =  new Date(new Date().getTime()+(120*24*7*59*1000)).toISOString().substr(0, 10)
+          activedate = new Date(new Date(item.active_date).getTime()+(120*24*0*30*1000)).toISOString().substr(0, 10),
+          datenow =  new Date(new Date().getTime()+(120*24*8*31*1000)).toISOString().substr(0, 10)
           // derived date
         var dateObj = new Date();
         var month = dateObj.getMonth()+1; 
@@ -185,10 +243,11 @@ img.preview {
           month = '0'+month
         }
         var newdate = year + "-" + month + "-" + day;
-        console.log(activedate)
-        console.log(newdate)
+        console.log(date_diff_indays(activedate,newdate))
         if (new Date(datenow) > duedate) return 'trans'
-        else if (new Date(newdate) >= activedate) return 'transgreen'
+        else if (date_diff_indays(activedate,newdate)==2) return 'transyellow'
+        else if (date_diff_indays(activedate,newdate)==4) return 'transblue'
+        else if (date_diff_indays(activedate,newdate)>=6) return 'transgreen'
         else return 'none'
         // else return 'green'
       },

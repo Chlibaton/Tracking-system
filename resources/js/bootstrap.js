@@ -47,9 +47,22 @@ if (token) {
 
 // window.Pusher = require('pusher-js');
 
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    enabledTransports: ['ws', 'wss']
+});
+
+
+
+// import Echo from "laravel-echo"
+
+// window.io = require('socket.io-client');
+
 // window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
+//     broadcaster: 'socket.io',
+//     host: window.location.hostname + ':6001'
 // });

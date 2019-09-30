@@ -83,7 +83,7 @@ img.preview {
                    <v-text-field v-model="editedItem.jofno" filled readonly label="JOF#" ></v-text-field>
                   </v-flex>
                      <v-flex xs6>
-                   <v-text-field v-model="editedItem.orderno" label="Order No" ></v-text-field>
+                   <v-text-field v-model="editedItem.orderno" label="Order Name" ></v-text-field>
                   </v-flex>
                     <v-flex xs12>
                     <v-text-field v-model="editedItem.distributor_name" label="Distributor Name" ></v-text-field>
@@ -129,12 +129,12 @@ img.preview {
                          <v-flex xs6>
                             <v-text-field v-model="editedItem.ring_size" label="Ring Size"></v-text-field>
                         </v-flex>
-                        <v-flex xs6>
+                        <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.bridge" label="Bridge"></v-text-field>
-                        </v-flex>
-                         <v-flex xs6>
+                        </v-flex> -->
+                         <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.year" label="Year"></v-text-field>
-                        </v-flex>
+                        </v-flex> -->
                         <v-flex xs6>
                             <v-text-field v-model="editedItem.weight" label="Weight"></v-text-field>
                         </v-flex>
@@ -150,9 +150,9 @@ img.preview {
                         <v-flex xs6>
                             <v-text-field v-model="editedItem.inside_engrave" label="Inside Engrave"></v-text-field>
                         </v-flex>
-                         <v-flex xs6>
+                         <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.quantity" label="Quantity"></v-text-field>
-                        </v-flex>
+                        </v-flex> -->
                             </v-layout>
                         </v-card-text>
                     </v-card>
@@ -179,11 +179,12 @@ img.preview {
                   <!-- Attachment of Images -->
                      <v-flex xs12>
                      <v-card>
-                       <v-card-title>Add Images</v-card-title>
+                       <v-card-title>Attach Artwork</v-card-title>
                         <v-card-text>
                             <v-layout wrap>
                          <v-flex xs12>
-                            <v-label>Add Images</v-label>
+                            <v-label>Upload Photo</v-label>
+                            <input type="file" @change="uploadImage" accept="image/*">
                         </v-flex>
                             </v-layout>
                         </v-card-text>
@@ -313,7 +314,6 @@ img.preview {
             this.editedItem.date_prepared = this.date1
             this.editedItem.due_date = this.date2
             this.editedItem.jof_status ='Receiving Section'
-
             if (this.editedIndex > -1) {
                 this.toBeUpdated = this.dataItems[this.editedIndex]
                 axios.put('/api/JOFupdate',this.editedItem)
@@ -327,7 +327,6 @@ img.preview {
                     console.log(error);
                 })
             } else {
-                console.log(this.editedItem)
                 this.addedItems = this.editedItem
                 axios.post('/api/JOFcreate',this.editedItem)
                     .then(()=>{
@@ -344,20 +343,20 @@ img.preview {
         }
       },
        getColor (a) {
-          const duedate = new Date(a),
-            datenow =  new Date(new Date().getTime()+(120*24*7*59*1000)).toISOString().substr(0, 10)
+          var duedate = new Date(a),
+            datenow =  new Date(new Date().getTime()+(120*24*8*31*1000)).toISOString().substr(0, 10)
 
         if (new Date(datenow) > duedate) return 'trans'
         else return 'none'
         // else return 'green'
       },
      async getSeries(){
-           
         axios.get('api/getSeries')
         .then((response)=>{
             this.numberseries=response.data[0]
            var incrementSeries=parseInt(response.data[0].seriesno)+response.data[0].incrementno,
-           seriesno = ('190000000000'+incrementSeries).slice(-12);
+            year =(response.data[0].series_code)+new Date().getFullYear(),
+           seriesno = year+('00000'+incrementSeries).slice(-5);
             this.numberseries.seriesno = seriesno
            this.editedItem.jofno = seriesno
            this.editedItem.refno = 'REF#'+seriesno
@@ -369,7 +368,18 @@ img.preview {
 
             this.seriesbtn = true
         })
+      },
+      //Upload Image
+      uploadImage(){
+      var input = event.target;
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = (e) => {
+              this.editedItem.upload_image = e.target.result;
+          }
+          reader.readAsDataURL(input.files[0]);
       }
+      },
        
     },
    

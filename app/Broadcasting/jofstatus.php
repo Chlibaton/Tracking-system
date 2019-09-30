@@ -2,7 +2,7 @@
 
 namespace App\Broadcasting;
 
-use App\User;
+use App\Joforder;
 
 class jofstatus
 {
@@ -22,8 +22,8 @@ class jofstatus
      * @param  \App\User  $user
      * @return array|bool
      */
-    public function join(User $user)
-    {
-        //
-    }
+    // public function join(Joforder $joforder)
+    // {
+    //    return $joforder->id === '1';
+    // }
 }

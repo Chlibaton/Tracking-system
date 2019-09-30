@@ -15,7 +15,8 @@ class NumberSeries extends Migration
     {
         Schema::create('NumberSeries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('seriesno')->default('190000000000');
+            $table->string('series_code')->default('VYD');
+            $table->string('seriesno')->default('00000');
             $table->Integer('incrementno')->default(0);
             $table->rememberToken();
             $table->timestamps();

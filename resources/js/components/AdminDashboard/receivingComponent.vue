@@ -122,13 +122,20 @@ img.preview {
         .then((response)=>{
             this.dataItems = response.data
         })
+        Echo.channel('jofstatus')
+        .listen('JOFStatus', (e) => {
+             axios.get('/JOFinit/1')
+              .then((response)=>{
+                  this.dataItems = response.data
+              })
+        });
     },
 //methods
 
     methods: {
        getColor (a) {
           const duedate = new Date(a),
-            datenow =  new Date(new Date().getTime()+(120*24*7*59*1000)).toISOString().substr(0, 10)
+            datenow =  new Date(new Date().getTime()+(120*24*8*31*1000)).toISOString().substr(0, 10)
 
         if (new Date(datenow) > duedate) return 'trans'
         else return 'none'

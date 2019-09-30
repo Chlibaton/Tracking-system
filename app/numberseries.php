@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class numberseries extends Model
 {
     protected $fillable = [
-        'seriesno','incrementno'
+        'series_code','seriesno','incrementno'
     ];
     protected $primaryKey = 'id';
     protected $table = 'numberseries';
