@@ -183,7 +183,16 @@ img.preview {
       dialog (val) {
         val || this.close()
       },
+    created(){
+             console.log('test')
+      //  var pusher = new Pusher('anykey');
+      //  var channel = pusher.subscribe('JOFStatus');
 
+        Echo.channel('JOFStatus')
+          .listen('joforder', (e) => {
+              console.log(e);
+          });
+    },
     async mounted(){
           axios.get('/api/JOFPending')
           .then((response)=>{
@@ -194,13 +203,12 @@ img.preview {
           .then((response)=>{
                 this.jofData.Delivered = response.data
           })
-          setInterval(function(){
-            this.liveReload()
-          }.bind(this), 5000);
+          // setInterval(function(){
+          //   this.liveReload()
+          // }.bind(this), 5000);
     },
  
 //methods
-
     methods: {
        getColor (a) {
            const duedate = new Date(a),

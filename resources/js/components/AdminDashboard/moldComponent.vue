@@ -114,13 +114,25 @@ img.preview {
       dataItems:[],
     }),
 
+  created(){
+    // Pusher.logToConsole = true;
+    //     var pusher = new Pusher('anykey', {
+    //       cluster: 'ap1',
+    //       forceTLS: true
+    //     });
 
+    //     var channel = pusher.subscribe('joforder');
+    //     channel.bind('App\Events\JOFStatus', function(data) {
+    //       alert(JSON.stringify(data));
+    //     });
+  },
     async mounted(){
         axios.get('/JOFinit/2')
         .then((response)=>{
-          console.log(response.data)
             this.dataItems = response.data
         })
+        
+
     },
 
 //methods
@@ -138,8 +150,6 @@ img.preview {
           month = '0'+month
         }
         var newdate = year + "-" + month + "-" + day;
-        console.log(activedate)
-        console.log(newdate)
         if (new Date(datenow) > duedate) return 'trans'
         else if (new Date(newdate) >= activedate) return 'transgreen'
         else return 'none'
@@ -149,8 +159,8 @@ img.preview {
       jofActions(item){
         item.jof_status = 'Casting Section'
         item.remarks = 0
-         axios.post('/api/JOFupdateStatus/',item)
-            .then(()=>{
+         axios.post('/JOFupdateStatus/',item)
+            .then((res)=>{
                axios.post('/api/jofhistory',item)
                   .then((response)=>{
                         axios.get('/JOFinit/2')

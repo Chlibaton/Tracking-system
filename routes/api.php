@@ -32,7 +32,7 @@ Route::delete('/JOFdelete/{id}','JOFController@destroy');
 // get number series
 Route::get('/getSeries','JOFController@getSeries');
 
-Route::post('/JOFupdateStatus','JOFController@updateStatus');
+// Route::post('/JOFupdateStatus','JOFController@updateStatus');
 
 Route::get('/JOFstatus','JOFController@JOFstatus');
 

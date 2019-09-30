@@ -27,3 +27,6 @@ Route::get('/userrole ', 'UserController@userrole');
 // Route::get('/home ', 'HomeController@index')->name('home');
 Route::get('/{vue?}', function () { return view('/home/home'); })->where('vue', '[\/\w\.-]*');
 
+
+Route::post('/JOFupdateStatus','JOFController@updateStatus');
+

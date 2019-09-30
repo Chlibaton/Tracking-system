@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +11,7 @@ use App\joforder;
 use App\numberseries;
 use PDF;
 use Carbon\Carbon;
+
 
 class JOFController extends Controller
 {
@@ -156,14 +159,14 @@ class JOFController extends Controller
     }
 
     public function updateStatus(Request $request){
-        joforder::where('id', $request->id)
-            ->orderby('id', 'desc')
-            ->take(1)
-            ->update([
-                'jof_status' =>$request->jof_status,
-                'remarks' =>$request->remarks,
-                'active_date' =>Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-D'),
-                ]);
+        // joforder::where('id', $request->id)
+        //     ->orderby('id', 'desc')
+        //     ->take(1)
+        //     ->update([
+        //         'jof_status' =>$request->jof_status,
+        //         'remarks' =>$request->remarks,
+        //         'active_date' =>Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-D'),
+        //         ]);
         return 'success';
     }
     
