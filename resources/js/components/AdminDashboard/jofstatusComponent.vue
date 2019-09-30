@@ -52,6 +52,59 @@ img.preview {
     margin-left: 10px;
 }
 
+/* 2 DAYS */
+.transyellow{
+  -webkit-animation: YELLOW-ANIMATION 1s infinite;  /* Safari 4+ */
+  -moz-animation: YELLOW-ANIMATION 1s infinite;  /* Fx 5+ */
+  -o-animation: YELLOW-ANIMATION 1s infinite;  /* Opera 12+ */
+  animation: YELLOW-ANIMATION 1s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@keyframes YELLOW-ANIMATION {
+  0%, 49% {
+    background-color: transparent;
+    /* border: 3px solid #e50000; */
+  }
+  50%, 100% {
+    background-color: #ffc107;
+  }
+}
+/* 4DAYS */
+.transblue{
+  -webkit-animation: BLUE-ANIMATION 1s infinite;  /* Safari 4+ */
+  -moz-animation: BLUE-ANIMATION 1s infinite;  /* Fx 5+ */
+  -o-animation: BLUE-ANIMATION 1s infinite;  /* Opera 12+ */
+  animation: BLUE-ANIMATION 1s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@keyframes BLUE-ANIMATION {
+  0%, 49% {
+    background-color: transparent;
+    /* border: 3px solid #e50000; */
+  }
+  50%, 100% {
+    background-color: #17a2b8;
+  }
+}
+
+/* 6 days */
+.transgreen{
+  -webkit-animation: GREEN-ANIMATION 1s infinite;  /* Safari 4+ */
+  -moz-animation: GREEN-ANIMATION 1s infinite;  /* Fx 5+ */
+  -o-animation: GREEN-ANIMATION 1s infinite;  /* Opera 12+ */
+  animation: GREEN-ANIMATION 1s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@keyframes GREEN-ANIMATION {
+  0%, 49% {
+    background-color: transparent;
+    /* border: 3px solid #e50000; */
+  }
+  50%, 100% {
+    background-color: #28a745;
+  }
+}
+
 </style>
 
 
@@ -123,11 +176,16 @@ img.preview {
           <div class="radiOPTS">
             <input type="radio" name="optradio" v-on:click="displayData('All')" :checked='radiobtns.pending'><label class=' bg-primary textpads'>Pending JOF Order</label>
             <input type="radio" name="optradio" v-on:click="displayData('Done')" :checked='radiobtns.delivered'> <label class='bg-success textpads'>Done</label>
+
+                <label class=' bg-warning textpads'>2 Days Delay</label>
+            <label class='bg-info textpads'>4 Days Delay</label>
+            <label class='bg-success textpads'>6+ Days Delay</label>
+            <label class='bg-danger textpads'>7 Day Due Date</label>
           </div>
         </template>
           <template v-slot:item.due_date="{ item }" > 
             <v-chip v-if="item.jof_status == 'Done'"> {{ item.due_date }}</v-chip> 
-            <v-chip v-if="item.jof_status != 'Done'"  :class="getColor(item.due_date)" > {{ item.due_date }}</v-chip> 
+            <v-chip v-if="item.jof_status != 'Done'"  :class="getColor(item)" > {{ item.due_date }}</v-chip> 
         </template>
          <template v-slot:item.view_details="{ item }" > 
             <v-chip v-on:click="getDetails(item)">View Details</v-chip> 
@@ -206,15 +264,45 @@ img.preview {
           // setInterval(function(){
           //   this.liveReload()
           // }.bind(this), 5000);
+
+          // mas live to
+        Echo.channel('jofstatus')
+        .listen('JOFStatus', (e) => {
+               axios.get('/api/JOFPending')
+              .then((response)=>{
+                this.jofData.Pending = response.data
+                this.dataItems =  response.data
+          })
+        });
     },
  
 //methods
     methods: {
-       getColor (a) {
-           const duedate = new Date(a),
-            datenow =  new Date(new Date().getTime()+(120*24*7*31*1000)).toISOString().substr(0, 10)
+      getColor (item) {
+         var date_diff_indays = function(date1, date2) {
+            var dt1 = new Date(date1);
+            var dt2 = new Date(date2);
+            return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+            }
+            // console.log(date_diff_indays('04/02/2014', '11/04/2014'));
 
+          const duedate = new Date(item.due_date),
+          activedate = new Date(new Date(item.active_date).getTime()+(120*24*0*30*1000)).toISOString().substr(0, 10),
+          datenow =  new Date(new Date().getTime()+(120*24*8*31*1000)).toISOString().substr(0, 10)
+          // derived date
+        var dateObj = new Date();
+        var month = dateObj.getMonth()+1; 
+        var day = dateObj.getDate();
+        var year = dateObj.getFullYear();
+        if(month <10){
+          month = '0'+month
+        }
+        var newdate = year + "-" + month + "-" + day;
+        console.log(date_diff_indays(activedate,newdate))
         if (new Date(datenow) > duedate) return 'trans'
+        else if (date_diff_indays(activedate,newdate)==2) return 'transyellow'
+        else if (date_diff_indays(activedate,newdate)==4) return 'transblue'
+        else if (date_diff_indays(activedate,newdate)>=6) return 'transgreen'
         else return 'none'
         // else return 'green'
       },

@@ -83,7 +83,7 @@ img.preview {
                    <v-text-field v-model="editedItem.jofno" filled readonly label="JOF#" ></v-text-field>
                   </v-flex>
                      <v-flex xs6>
-                   <v-text-field v-model="editedItem.orderno" label="Order No" ></v-text-field>
+                   <v-text-field v-model="editedItem.orderno" label="Order Name" ></v-text-field>
                   </v-flex>
                     <v-flex xs12>
                     <v-text-field v-model="editedItem.distributor_name" label="Distributor Name" ></v-text-field>
@@ -129,12 +129,12 @@ img.preview {
                          <v-flex xs6>
                             <v-text-field v-model="editedItem.ring_size" label="Ring Size"></v-text-field>
                         </v-flex>
-                        <v-flex xs6>
+                        <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.bridge" label="Bridge"></v-text-field>
-                        </v-flex>
-                         <v-flex xs6>
+                        </v-flex> -->
+                         <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.year" label="Year"></v-text-field>
-                        </v-flex>
+                        </v-flex> -->
                         <v-flex xs6>
                             <v-text-field v-model="editedItem.weight" label="Weight"></v-text-field>
                         </v-flex>
@@ -150,9 +150,9 @@ img.preview {
                         <v-flex xs6>
                             <v-text-field v-model="editedItem.inside_engrave" label="Inside Engrave"></v-text-field>
                         </v-flex>
-                         <v-flex xs6>
+                         <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.quantity" label="Quantity"></v-text-field>
-                        </v-flex>
+                        </v-flex> -->
                             </v-layout>
                         </v-card-text>
                     </v-card>
@@ -314,7 +314,6 @@ img.preview {
             this.editedItem.date_prepared = this.date1
             this.editedItem.due_date = this.date2
             this.editedItem.jof_status ='Receiving Section'
-          console.log(this.editedItem)
             if (this.editedIndex > -1) {
                 this.toBeUpdated = this.dataItems[this.editedIndex]
                 axios.put('/api/JOFupdate',this.editedItem)
@@ -328,7 +327,6 @@ img.preview {
                     console.log(error);
                 })
             } else {
-                console.log(this.editedItem)
                 this.addedItems = this.editedItem
                 axios.post('/api/JOFcreate',this.editedItem)
                     .then(()=>{

@@ -36,7 +36,7 @@ Route::post('/JOFupdateStatus','JOFController@updateStatus');
 
 Route::get('/JOFstatus','JOFController@JOFstatus');
 
-Route::get('/exportpdf/{id}','JOFController@ExportPDF');
+Route::get('/exportpdf','JOFController@ExportPDF');
 
 Route::get('/JOFPending','JOFController@JOFPending');
 Route::get('/JOFDelivered','JOFController@JOFDelivered');
@@ -46,4 +46,5 @@ Route::post('/jofhistory','JofHistoryController@jofhistory');
 Route::get('/getJOF/{id}','JofHistoryController@getJOF');
 Route::get('/getJOFAll/{id}','JofHistoryController@index');
 
-
+// 7th day due date
+Route::get('/sevenDueDate','JOFController@sevenDueDate');

@@ -122,6 +122,13 @@ img.preview {
         .then((response)=>{
             this.dataItems = response.data
         })
+        Echo.channel('jofstatus')
+        .listen('JOFStatus', (e) => {
+             axios.get('/JOFinit/1')
+              .then((response)=>{
+                  this.dataItems = response.data
+              })
+        });
     },
 //methods
 

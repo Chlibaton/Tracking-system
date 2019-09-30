@@ -10,8 +10,6 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-use App\Joforder;
-
 
 class JOFStatus implements ShouldBroadcast
 
@@ -36,11 +34,11 @@ class JOFStatus implements ShouldBroadcast
      */
     public function broadcastOn()
   {
-      return ['joforder'];
+      return new Channel('jofstatus');
   }
-  public function broadcastAs()
-  {
-      return 'my-event';
-  }
+//   public function broadcastAs()
+//   {
+//       return 'my-event';
+//   }
 
 }

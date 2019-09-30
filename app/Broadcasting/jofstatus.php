@@ -22,8 +22,8 @@ class jofstatus
      * @param  \App\User  $user
      * @return array|bool
      */
-    public function join(Joforder $joforder)
-    {
-       return $joforder === '1';
-    }
+    // public function join(Joforder $joforder)
+    // {
+    //    return $joforder->id === '1';
+    // }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +9,8 @@ use App\joforder;
 use App\numberseries;
 use PDF;
 use Carbon\Carbon;
+
+use App\Events\JOFStatus;
 
 
 class JOFController extends Controller
@@ -78,10 +78,11 @@ class JOFController extends Controller
         $result = joforder::where('jof_status','Done')->orderBy('due_date','asc')->get()->all();
         return $result;  
     }
-    public function ExportPDF($id){
-        $joforder = joforder::where('date_prepared','>=',$id)->get()->all();
-        $date = Carbon::now();
-        $datesevendays = $date->addDays(7);
+    public function ExportPDF(){
+        $datenow = Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-DD');
+        $datesevendays = Carbon::now('GMT+8:00')->addDays(7)->isoFormat('YYYY-MM-DD');
+        $joforder = joforder::whereBetween('due_date',[$datenow,$datesevendays])->orderBy('due_date','asc')->get()->all();
+
         $pdf = PDF::loadView('pdf', compact('joforder','datesevendays'));
          return $pdf->download('JOFOrder.pdf');
         // return view('pdf',['joforder'=>$joforder,'datesevendays'=>$datesevendays]);
@@ -94,7 +95,7 @@ class JOFController extends Controller
      */
     public function create(Request $request)
     {
-
+        event(new JOFStatus('event on update'));
         // $result = joforder::create($request->all());
         // return $result;
         if($request->upload_image !== null) {
@@ -211,6 +212,7 @@ class JOFController extends Controller
         else {
             $result = joforder::where('id', $request->id)->update($request->all());
         }
+        event(new JOFStatus('event on update'));
         return $result;
     }
 
@@ -222,11 +224,13 @@ class JOFController extends Controller
      */
     public function destroy($id)
     {
+        event(new JOFStatus('event on update'));
         $result = joforder::where('id',$id)->delete();
         return 'Deleted';
     }
 
     public function updateStatus(Request $request){
+        event(new JOFStatus('event on update'));
         joforder::where('id', $request->id)
             ->orderby('id', 'desc')
             ->take(1)
@@ -256,5 +260,11 @@ class JOFController extends Controller
         }
       
         return $result;
+    }
+    public function sevenDueDate(){
+        $datenow = Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-DD');
+        $datesevendays = Carbon::now('GMT+8:00')->addDays(7)->isoFormat('YYYY-MM-DD');
+        $result = joforder::whereBetween('due_date',[$datenow,$datesevendays])->orderBy('due_date','asc')->get()->all();
+        return $result;  
     }
 }
