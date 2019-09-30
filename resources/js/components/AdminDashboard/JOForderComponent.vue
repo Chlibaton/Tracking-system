@@ -306,6 +306,13 @@ img.preview {
             this.editedItem.active_user =this.activeuser.id
             this.defaultItem.active_user =this.activeuser.id
         })
+          Echo.channel('jofstatus')
+        .listen('JOFStatus', (e) => {
+             axios.get('/JOFinit/1')
+              .then((response)=>{
+                  this.dataItems = response.data
+              })
+        });
     },
 //methods
 
