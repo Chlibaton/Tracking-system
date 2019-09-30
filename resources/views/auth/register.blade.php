@@ -38,11 +38,11 @@
                             </div>
 
                         <div class="row">
-                            <label for="address" class="col-md-2 col-form-label text-md-right"></label>
+                            <label for="organization_name" class="col-md-2 col-form-label text-md-right"></label>
                             <div class="col-md-8">
-                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address"  placeholder="Address" autofocus>
+                                <input id="organization_name" type="text" class="form-control @error('organization_name') is-invalid @enderror" name="organization_name" value="{{ old('organization_name') }}" required autocomplete="organization_name"  placeholder="organization name" autofocus>
 
-                                @error('address')
+                                @error('organization_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -50,19 +50,6 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <label for="mobileno" class="col-md-2 col-form-label text-md-right"></label>
-
-                            <div class="col-md-8">
-                                <input id="mobileno" type="text" class="form-control @error('mobileno') is-invalid @enderror" name="mobileno" value="{{ old('mobileno') }}" required autocomplete="mobileno"  placeholder="Mobile Number" autofocus>
-
-                                @error('mobileno')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
                         <div class="row">
                             <label for="email" class="col-md-2 col-form-label text-md-right"></label>

@@ -357,7 +357,9 @@ img.preview {
         .then((response)=>{
             this.numberseries=response.data[0]
            var incrementSeries=parseInt(response.data[0].seriesno)+response.data[0].incrementno,
-           seriesno = ('190000000000'+incrementSeries).slice(-12);
+            year =(response.data[0].series_code)+new Date().getFullYear(),
+           seriesno = year+('00000'+incrementSeries).slice(-5);
+           console.log(year)
             this.numberseries.seriesno = seriesno
            this.editedItem.jofno = seriesno
            this.editedItem.refno = 'REF#'+seriesno
