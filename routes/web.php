@@ -24,9 +24,9 @@ Route::get('/getUser ', 'UserController@getUser');
 Route::get('/JOFinit/{id}','JOFController@index');
 Route::get('/logout ', 'UserController@logout');
 Route::get('/userrole ', 'UserController@userrole');
-// Route::get('/home ', 'HomeController@index')->name('home');
+Route::get('/home ', 'HomeController@index')->name('home');
 Route::get('/{vue?}', function () { return view('/home/home'); })->where('vue', '[\/\w\.-]*');
 
+Route::get('/jofform', 'JofFormController@index');
 
-Route::post('/JOFupdateStatus','JOFController@updateStatus');
 
