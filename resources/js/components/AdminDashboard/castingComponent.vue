@@ -175,7 +175,7 @@ img.preview {
         getColor (item) {      
           const duedate = new Date(item.due_date),
           activedate = new Date(new Date(new Date(item.active_date).getTime()+(120*24*2*30*1000)).toISOString().substr(0, 10)),
-          datenow =  new Date(new Date().getTime()+(120*24*7*59*1000)).toISOString().substr(0, 10)
+          datenow =  new Date(new Date().getTime()+(120*24*8*31*1000)).toISOString().substr(0, 10)
           // derived date
         var dateObj = new Date();
         var month = dateObj.getMonth()+1; 
