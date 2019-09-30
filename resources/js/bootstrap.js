@@ -50,7 +50,7 @@ if (token) {
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
 //     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: 'ap1',
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     wsHost: window.location.hostname,
 //     encrypted :false,
 //     wsPort: 6001,

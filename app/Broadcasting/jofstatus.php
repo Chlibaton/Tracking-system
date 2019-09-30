@@ -24,6 +24,6 @@ class jofstatus
      */
     public function join(Joforder $joforder)
     {
-        //
+       return $joforder === '1';
     }
 }

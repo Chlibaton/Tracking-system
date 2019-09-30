@@ -188,10 +188,10 @@ img.preview {
       //  var pusher = new Pusher('anykey');
       //  var channel = pusher.subscribe('JOFStatus');
 
-        Echo.channel('JOFStatus')
-          .listen('joforder', (e) => {
-              console.log(e);
-          });
+        // Echo.channel('JOFStatus')
+        //   .listen('joforder', (e) => {
+        //       console.log(e);
+        //   });
     },
     async mounted(){
           axios.get('/api/JOFPending')
@@ -212,7 +212,7 @@ img.preview {
     methods: {
        getColor (a) {
            const duedate = new Date(a),
-            datenow =  new Date(new Date().getTime()+(120*24*7*59*1000)).toISOString().substr(0, 10)
+            datenow =  new Date(new Date().getTime()+(120*24*7*31*1000)).toISOString().substr(0, 10)
 
         if (new Date(datenow) > duedate) return 'trans'
         else return 'none'

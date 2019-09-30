@@ -95,7 +95,41 @@ class JOFController extends Controller
     public function create(Request $request)
     {
 
-        $result = joforder::create($request->all());
+        // $result = joforder::create($request->all());
+        // return $result;
+        if($request->upload_image !== null) {
+            $exploded = explode(',',$request->upload_image);
+            $decoded = base64_decode($exploded[1]);
+            if(str_contains($exploded[0],'jpeg'))
+            {
+                $extension = 'jpg';
+            }
+            else
+            {
+                $extension = 'png';
+            }
+
+            if(joforder::where('upload_image', $request->upload_image)->exists())
+                $result = false;
+            else {
+                //generate random strings
+                $length= 10;
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $charactersLength = strlen($characters);
+                $randomString = '';
+                for ($i = 0; $i < $length; $i++) {
+                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                }
+                // set all details
+                $filename = $randomString.'.'.$extension;
+                $path = public_path().'/img/artwork/'.$filename;
+                file_put_contents($path,$decoded);    
+                $result = joforder::create($request->except('upload_image') + ['upload_image' => $filename]);
+            }
+        }
+        else {
+            $result = joforder::create($request->all());
+        }
         return $result;
     }
 
@@ -142,8 +176,42 @@ class JOFController extends Controller
      */
     public function update(Request $request)
     {
-        $result = joforder::where('id', $request->id)->update($request->all());
-        return 'success';
+        // $result = joforder::where('id', $request->id)->update($request->all());
+        // return 'success';
+        if($request->upload_image !== null) {
+            if(joforder::where('upload_image', $request->upload_image)->exists())
+                $result = joforder::where('id', $request->id)->update($request->except('upload_image') + ['upload_image' => $request->upload_image]);
+            else {
+                $exploded = explode(',',$request->upload_image);
+                $decoded = base64_decode($exploded[1]);
+                if(str_contains($exploded[0],'jpeg'))
+                {
+                    $extension = 'jpg';
+                }
+                else
+                {
+                    $extension = 'png';
+                }
+
+                //generate random strings
+                $length= 10;
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $charactersLength = strlen($characters);
+                $randomString = '';
+                for ($i = 0; $i < $length; $i++) {
+                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                }
+                // set all details
+                $filename = $randomString.'.'.$extension;
+                $path = public_path().'/img/artwork/'.$filename;
+                file_put_contents($path,$decoded);    
+                $result = joforder::where('id', $request->id)->update($request->except('upload_image') + ['upload_image' => $filename]);
+            }
+        }
+        else {
+            $result = joforder::where('id', $request->id)->update($request->all());
+        }
+        return $result;
     }
 
     /**
@@ -159,14 +227,14 @@ class JOFController extends Controller
     }
 
     public function updateStatus(Request $request){
-        // joforder::where('id', $request->id)
-        //     ->orderby('id', 'desc')
-        //     ->take(1)
-        //     ->update([
-        //         'jof_status' =>$request->jof_status,
-        //         'remarks' =>$request->remarks,
-        //         'active_date' =>Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-D'),
-        //         ]);
+        joforder::where('id', $request->id)
+            ->orderby('id', 'desc')
+            ->take(1)
+            ->update([
+                'jof_status' =>$request->jof_status,
+                'remarks' =>$request->remarks,
+                'active_date' =>Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-D'),
+                ]);
         return 'success';
     }
     

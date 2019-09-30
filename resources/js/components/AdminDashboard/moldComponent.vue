@@ -125,6 +125,7 @@ img.preview {
     //     channel.bind('App\Events\JOFStatus', function(data) {
     //       alert(JSON.stringify(data));
     //     });
+
   },
     async mounted(){
         axios.get('/JOFinit/2')
@@ -140,7 +141,7 @@ img.preview {
        getColor (item) {      
           const duedate = new Date(item.due_date),
           activedate = new Date(new Date(new Date(item.active_date).getTime()+(120*24*2*30*1000)).toISOString().substr(0, 10)),
-          datenow =  new Date(new Date().getTime()+(120*24*7*59*1000)).toISOString().substr(0, 10)
+          datenow =  new Date(new Date().getTime()+(120*24*8*31*1000)).toISOString().substr(0, 10)
           // derived date
         var dateObj = new Date();
         var month = dateObj.getMonth()+1; 
@@ -159,7 +160,7 @@ img.preview {
       jofActions(item){
         item.jof_status = 'Casting Section'
         item.remarks = 0
-         axios.post('/JOFupdateStatus/',item)
+         axios.post('api/JOFupdateStatus/',item)
             .then((res)=>{
                axios.post('/api/jofhistory',item)
                   .then((response)=>{
