@@ -278,7 +278,7 @@ img.preview {
                     </div>
                     <div class="row ring-attachment">
                         <div class="col-2"></div>
-                        <div class="col-8 ring-img"><img src="https://www.brianwhiter.com.au/wp-content/uploads/2017/10/Forest-1200x500-c-default.jpg" class="img-fluid" alt="Ring Image"></div>
+                        <div class="col-8 ring-img"><img :src="'/img/artwork/' + detailItems.upload_image" class="img-fluid" alt="Ring Image"></div>
                         <div class="col-2"></div>
                     </div>
                     <br><br>
