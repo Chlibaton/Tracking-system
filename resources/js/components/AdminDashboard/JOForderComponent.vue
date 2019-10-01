@@ -412,11 +412,11 @@ img.preview {
            seriesno = year+('00000'+incrementSeries).slice(-5);
             this.numberseries.seriesno = seriesno
            this.editedItem.jofno = seriesno
-           this.editedItem.refno = 'REF#'+seriesno
+           this.editedItem.refno = 'TR-'+seriesno
             this.editedItem.newseries =seriesno
 
             this.defaultItem.jofno = seriesno
-            this.defaultItem.refno = 'REF#'+seriesno
+            this.defaultItem.refno = 'TR-'+seriesno
             this.defaultItem.newseries =seriesno
 
             this.seriesbtn = true

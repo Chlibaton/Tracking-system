@@ -208,8 +208,8 @@ img.preview {
         var newdate = year + "-" + month + "-" + day;
         console.log(date_diff_indays(activedate,newdate))
         if (new Date(datenow) > duedate) return 'trans'
-        else if (date_diff_indays(activedate,newdate)==2) return 'transyellow'
-        else if (date_diff_indays(activedate,newdate)==4) return 'transblue'
+        else if (date_diff_indays(activedate,newdate)>=2&&date_diff_indays(activedate,newdate)<=3) return 'transyellow'
+        else if (date_diff_indays(activedate,newdate)>=4&&date_diff_indays(activedate,newdate)<=5) return 'transblue'
         else if (date_diff_indays(activedate,newdate)>=6) return 'transgreen'
         else return 'none'
         // else return 'green'

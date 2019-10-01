@@ -283,4 +283,10 @@ class JOFController extends Controller
         $result = joforder::whereBetween('due_date',[$datenow,$datesevendays])->orderBy('due_date','asc')->get()->all();
         return $result;  
     }
+    public function getTracking($id){
+        $result = joforder::where('distributor_code',$id)
+        ->orWhere('refno',$id)
+        ->orderBy('refno','desc')->get(['refno','distributor_code','kind_of_ring','date_prepared','due_date','jof_status']);
+        return $result;  
+    }
 }

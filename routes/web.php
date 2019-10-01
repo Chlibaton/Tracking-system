@@ -35,9 +35,12 @@ Route::get('/userlogin ',function(){
     return view('/home/userlogin');
 });
 
+
 // JOF Status
 Route::get('/JOFPending','JOFController@JOFPending');
 Route::get('/JOFDelivered','JOFController@JOFDelivered');
+// Customer Search
+Route::get('/getTracking/{id}','JOFController@getTracking');
 
 
 Route::get('/{vue?}', function () { return view('/home/home'); })->where('vue', '[\/\w\.-]*');
