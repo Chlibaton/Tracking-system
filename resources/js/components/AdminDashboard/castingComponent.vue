@@ -101,7 +101,9 @@ img.preview {
 .remarks{
   color:white;
 }
-
+.not_special{
+   background-color: #e0e0e000 !important;
+}
 
 </style>
 
@@ -151,6 +153,10 @@ img.preview {
             <label class='bg-danger textpads'>7 Day Due Date</label>
           </div>
         </template>
+         <template v-slot:item.jofno="{ item }" > 
+            <v-chip v-if="item.sp_order==1" class="bg-warning" > {{ item.jofno }}</v-chip> 
+            <v-chip v-else class="not_special"> {{ item.jofno }}</v-chip> 
+          </template>
             <template v-slot:item.due_date="{ item }" > 
             <v-chip :class="getColor(item)" > {{ item.due_date }}</v-chip> 
           </template>

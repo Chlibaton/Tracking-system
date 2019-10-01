@@ -30,9 +30,7 @@ class JOFORDER extends Migration
             $table->string('year')->nullable();
             $table->string('karat')->nullable();
             $table->string('text_style')->nullable();
-            $table->string('quantity')->nullable();
             $table->string('stone')->nullable();
-            $table->string('bridge')->nullable();
             $table->string('weight')->nullable();
             $table->string('oxidation')->nullable();
             $table->string('inside_engrave')->nullable();
@@ -41,6 +39,8 @@ class JOFORDER extends Migration
             $table->string('right_shank')->nullable();
             $table->string('upload_image')->nullable();
             $table->string('remarks')->default(0);
+            $table->string('sp_order')->default(0);
+            $table->string('sp_approve')->default(0);
             $table->string('jof_status')->nullable();
             $table->string('active_date')->nullable();
             $table->rememberToken();

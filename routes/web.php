@@ -27,8 +27,13 @@ Route::get('/JOFinit/{id}','JOFController@index');
 Route::get('/logout ', 'UserController@logout');
 Route::get('/userrole ', 'UserController@userrole');
 Route::get('/home ', 'HomeController@index')->name('home');
-Route::get('/{vue?}', function () { return view('/home/home'); })->where('vue', '[\/\w\.-]*');
 
+// JOF Status
+Route::get('/JOFPending','JOFController@JOFPending');
+Route::get('/JOFDelivered','JOFController@JOFDelivered');
+
+
+Route::get('/{vue?}', function () { return view('/home/home'); })->where('vue', '[\/\w\.-]*');
 
 
 

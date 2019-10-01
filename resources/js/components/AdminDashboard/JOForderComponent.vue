@@ -48,7 +48,12 @@ img.preview {
     background-color: #e50000;
   }
 }
-
+.not_special{
+   background-color: #e0e0e000 !important;
+}
+.bg-dark {
+    color: #ffc107 !important;
+}
 </style>
 
 
@@ -85,14 +90,19 @@ img.preview {
                      <v-flex xs6>
                    <v-text-field v-model="editedItem.orderno" label="Order Name" ></v-text-field>
                   </v-flex>
+                   <v-flex xs6>
+                     <v-switch v-model="switch1" label="Special Order"></v-switch>
+                  </v-flex>
                     <v-flex xs12>
                     <v-text-field v-model="editedItem.distributor_name" label="Distributor Name" ></v-text-field>
                   </v-flex>
                   <v-flex xs12>
                     <v-text-field v-model="editedItem.customer_name" label="Customer Name" ></v-text-field>
                   </v-flex>
+                  
+                  
                   <v-flex xs6>
-                            <v-menu   v-model="menu1" :close-on-content-click="false" full-width min-width="290px" offset-y >
+                            <v-menu   v-model="menu1" :close-on-content-click="false" min-width="290px" offset-y >
                               <template v-slot:activator="{ on }">
                                 <v-text-field clearable prepend-icon="event" readonly label="Date Prepared" v-on="on"  :value="date1"></v-text-field>
                               </template>
@@ -102,7 +112,7 @@ img.preview {
                   </v-flex>
                   <v-flex xs6>
                     <!-- <v-text-field v-model="editedItem.due_date" label="Due Date"></v-text-field> -->
-                            <v-menu v-model="menu2"  :close-on-content-click="false" full-width max-width="290" offset-y >
+                            <v-menu v-model="menu2"  :close-on-content-click="false" max-width="290" offset-y >
                               <template v-slot:activator="{ on }">
                                 <v-text-field clearable prepend-icon="event" readonly label="Due Date" v-on="on"  :value="date2"></v-text-field>
                               </template>
@@ -129,12 +139,12 @@ img.preview {
                          <v-flex xs6>
                             <v-text-field v-model="editedItem.ring_size" label="Ring Size"></v-text-field>
                         </v-flex>
-                        <!-- <v-flex xs6>
-                            <v-text-field v-model="editedItem.bridge" label="Bridge"></v-text-field>
-                        </v-flex> -->
-                         <!-- <v-flex xs6>
+                        <v-flex xs6>
+                            <!-- <v-text-field v-model="editedItem.bridge" label="Bridge"></v-text-field> -->
+                        </v-flex>
+                         <v-flex xs6>
                             <v-text-field v-model="editedItem.year" label="Year"></v-text-field>
-                        </v-flex> -->
+                        </v-flex>
                         <v-flex xs6>
                             <v-text-field v-model="editedItem.weight" label="Weight"></v-text-field>
                         </v-flex>
@@ -207,8 +217,18 @@ img.preview {
       <!--END  ADD JOF MODAL -->
       </v-toolbar>
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
+           <template v-slot:item.jofno="{ item }" > 
+            <v-chip v-if="item.sp_order==1" class="bg-dark" > {{ item.jofno }}</v-chip> 
+            <v-chip v-else class="not_special"> {{ item.jofno }}</v-chip> 
+          </template>
            <template v-slot:item.due_date="{ item }" > 
             <v-chip :class="getColor(item.due_date)" > {{ item.due_date }}</v-chip> 
+          </template>
+          <template v-slot:item.sp_approve="{ item }" > 
+            <div v-if="item.sp_order==1">
+            <v-chip v-if="item.sp_approve==0" class="not_special">Pending</v-chip> 
+            <v-chip v-else-if="item.sp_approve==2" class="bg-danger">Declined</v-chip> 
+            </div>
           </template>
         <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editItem(item)" > edit </v-icon>
@@ -227,6 +247,7 @@ img.preview {
       show1:false,
       menu1:false,
       menu2:false,
+      switch1:false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
         { text: 'Distributor Name', value: 'distributor_name',  },
@@ -235,6 +256,7 @@ img.preview {
         { text: 'Due Date', value: 'due_date',  },
         { text: 'Kind of Ring', value: 'kind_of_ring',  },
         { text: 'JOF Status', value: 'jof_status', },
+        { text: 'Special Order', value: 'sp_approve', },
         { text: 'Actions', value: 'action', sortable: false },
       ],
       ruleRequired: [
@@ -284,6 +306,13 @@ img.preview {
             this.editedItem.active_user =this.activeuser.id
             this.defaultItem.active_user =this.activeuser.id
         })
+          Echo.channel('jofstatus')
+        .listen('JOFStatus', (e) => {
+             axios.get('/JOFinit/1')
+              .then((response)=>{
+                  this.dataItems = response.data
+              })
+        });
     },
 //methods
 
@@ -309,6 +338,12 @@ img.preview {
 
     async save (a) { 
         this.editedItem.created_by = this.activeuser.first_name+' '+ this.activeuser.last_name
+        this.editedItem.sp_approve = 0
+        if(this.switch1){
+          this.editedItem.sp_order = 1
+        }else{
+          this.editedItem.sp_order = 0
+        }
         if(this.$refs.form.validate()){
             // UPDATE/SAVE JOF
             this.editedItem.date_prepared = this.date1
@@ -382,6 +417,7 @@ img.preview {
       },
        
     },
+
    
    
     
