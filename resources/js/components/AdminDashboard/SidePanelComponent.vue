@@ -165,6 +165,12 @@
           </v-list-item-content>
         </v-list-item>
 
+        <v-list-item v-if="role==0 || role==9" class='navContent' href='/distributors'>
+          <v-list-item-content>
+            <v-list-item-title class='navList'>Distributors</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item v-if="role==0 || role==9"  class='navContent' href='/joforder'>
           <v-list-item-content>
             <v-list-item-title class='navList'>JOF Orders </v-list-item-title>

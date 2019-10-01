@@ -16,7 +16,7 @@
         @auth
             <sidepanel-component></sidepanel-component>
         @else
-            <home-component></home-component>
+            <trackingstatus-component></trackingstatus-component>
         @endauth
     </div>
 </body>

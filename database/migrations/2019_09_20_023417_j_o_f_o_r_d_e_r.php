@@ -19,6 +19,7 @@ class JOFORDER extends Migration
             $table->string('orderno')->nullable();
             $table->string('jofno')->nullable();
             $table->string('distributor_name')->nullable();
+            $table->string('distributor_code')->nullable();
             $table->string('customer_name')->nullable();
             $table->string('trackingno')->nullable();
             $table->string('date_prepared')->nullable();
@@ -37,6 +38,7 @@ class JOFORDER extends Migration
             $table->string('left_shank')->nullable();
             $table->string('top_shank')->nullable();
             $table->string('right_shank')->nullable();
+            $table->string('attach_remarks')->nullable();
             $table->string('upload_image')->nullable();
             $table->string('remarks')->default(0);
             $table->string('sp_order')->default(0);

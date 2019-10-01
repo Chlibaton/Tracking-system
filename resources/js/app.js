@@ -29,6 +29,7 @@ window.Vue = require('vue');
 
 
 Vue.component('sidepanel-component', require('./components/AdminDashboard/SidePanelComponent.vue').default);
+Vue.component('trackingstatus-component', require('./components/UserSide/TrackingStatusComponent.vue').default);
 Vue.component('superadmin-component', require('./components/AdminDashboard/SuperAdminComponent.vue').default);
 
 Vue.component('home-component', require('./components/Landing/HomeComponent.vue').default);
