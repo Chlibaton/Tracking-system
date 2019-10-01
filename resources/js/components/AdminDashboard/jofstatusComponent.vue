@@ -49,6 +49,7 @@ img.preview {
 }
 
 .radiOPTS {
+    margin-top: 5px;
     margin-left: 10px;
 }
 
@@ -109,6 +110,13 @@ img.preview {
 }
 .bg-dark {
     color: #ffc107 !important;
+}
+.bg-done{
+  background-color:#286326;
+}
+.legends {
+    margin-left: 23px;
+    padding-top: 10px;
 }
 
 </style>
@@ -318,14 +326,16 @@ img.preview {
       </v-toolbar>
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
         <template v-slot:top>
-          <div class="radiOPTS">
-            <input type="radio" name="optradio" v-on:click="displayData('All')" :checked='radiobtns.pending'><label class=' bg-primary textpads'>Pending JOF Order</label>
-            <input type="radio" name="optradio" v-on:click="displayData('Done')" :checked='radiobtns.delivered'> <label class='bg-success textpads'>Done</label>
-
-                <label class=' bg-warning textpads'>2 Days Delay</label>
+           <div class="legends">
+            <label class=' bg-warning textpads'>2 Days Delay</label>
             <label class='bg-info textpads'>4 Days Delay</label>
             <label class='bg-success textpads'>6+ Days Delay</label>
             <label class='bg-danger textpads'>7 Day Due Date</label>
+            <label class='bg-dark textpads'>Special Order</label>
+            </div>
+          <div class="radiOPTS">
+            <input type="radio" name="optradio" v-on:click="displayData('All')" :checked='radiobtns.pending'><label class=' bg-primary textpads'>Pending JOF Order</label>
+            <input type="radio" name="optradio" v-on:click="displayData('Done')" :checked='radiobtns.delivered'> <label class='bg-done textpads'>Done</label>
           </div>
         </template>
             <template v-slot:item.jofno="{ item }" > 
@@ -402,27 +412,28 @@ img.preview {
         //   });
     },
     async mounted(){
-          axios.get('/api/JOFPending')
+          axios.get('/JOFPending')
           .then((response)=>{
                 this.jofData.Pending = response.data
                 this.dataItems =  response.data
           })
-           axios.get('/api/JOFDelivered')
+           axios.get('/JOFDelivered')
           .then((response)=>{
                 this.jofData.Delivered = response.data
           })
-          // setInterval(function(){
-          //   this.liveReload()
-          // }.bind(this), 5000);
 
           // mas live to
         Echo.channel('jofstatus')
         .listen('JOFStatus', (e) => {
-               axios.get('/api/JOFPending')
+               axios.get('/JOFPending')
               .then((response)=>{
                 this.jofData.Pending = response.data
                 this.dataItems =  response.data
-          })
+              })
+            // axios.get('/JOFDelivered')
+            // .then((response)=>{
+            //       this.jofData.Delivered = response.data
+            // })
         });
     },
  
@@ -450,6 +461,7 @@ img.preview {
         var newdate = year + "-" + month + "-" + day;
         console.log(date_diff_indays(activedate,newdate))
         if (new Date(datenow) > duedate) return 'trans'
+        else if (item.active_date==null) return 'none'
         else if (date_diff_indays(activedate,newdate)==2) return 'transyellow'
         else if (date_diff_indays(activedate,newdate)==4) return 'transblue'
         else if (date_diff_indays(activedate,newdate)>=6) return 'transgreen'
@@ -472,23 +484,6 @@ img.preview {
             break;
         }
 
-      },
-      liveReload(){
-          axios.get('/api/JOFPending')
-          .then((response)=>{
-                this.jofData.Pending = response.data
-                 if(this.radiobtns.pending == true){
-                  this.dataItems = response.data
-                }
-          })
-           axios.get('/api/JOFDelivered')
-          .then((response)=>{
-                this.jofData.Delivered = response.data
-                if(this.radiobtns.delivered == true){
-                this.dataItems = response.data
-                 }
-          })
-      
       },
       getJOFhistory(item){
         this.tracking = true

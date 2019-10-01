@@ -70,13 +70,28 @@ class JOFController extends Controller
     }
     public function JOFPending()
     { 
-        $result = joforder::where('jof_status','!=','Done')->orderBy('due_date','asc')->get()->all();
+        if(Auth::user()->role ==9){
+            $salesOfficerName = Auth::user()->first_name.' '.Auth::user()->last_name;
+            $result = joforder::where('jof_status','!=','Done')
+            ->where('created_by',$salesOfficerName)
+            ->orderBy('due_date','asc')->get()->all();
+        }else{
+            $result = joforder::where('jof_status','!=','Done')->orderBy('due_date','asc')->get()->all();
+        }
         return $result;  
     }
     public function JOFDelivered()
     { 
-        $result = joforder::where('jof_status','Done')->orderBy('due_date','asc')->get()->all();
+        if(Auth::user()->role ==9){
+            $salesOfficerName = Auth::user()->first_name.' '.Auth::user()->last_name;
+            $result = joforder::where('jof_status','Done')
+            ->where('created_by',$salesOfficerName)
+            ->orderBy('due_date','asc')->get()->all();
+        }else{
+            $result = joforder::where('jof_status','Done')->orderBy('due_date','asc')->get()->all();
+        }
         return $result;  
+      
     }
     public function ExportPDF(){
         $datenow = Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-DD');
