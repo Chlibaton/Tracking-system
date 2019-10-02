@@ -154,6 +154,7 @@ img.preview {
             <label class='bg-info textpads'>4 Days Delay</label>
             <label class='bg-success textpads'>6+ Days Delay</label>
             <label class='bg-danger textpads'>7 Day Due Date</label>
+            <label class='bg-dark textpads'>Special Order</label>
           </div>
         </template>
          <template v-slot:item.jofno="{ item }" > 
