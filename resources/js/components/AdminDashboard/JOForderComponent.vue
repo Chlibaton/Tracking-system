@@ -54,6 +54,7 @@ img.preview {
 .bg-dark {
     color: #ffc107 !important;
 }
+
 </style>
 
 

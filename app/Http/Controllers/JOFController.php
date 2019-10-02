@@ -140,7 +140,7 @@ class JOFController extends Controller
                 $filename = $randomString.'.'.$extension;
                 $path = public_path().'/img/artwork/'.$filename;
                 file_put_contents($path,$decoded);    
-                $result = joforder::create($request->except('upload_image') + ['upload_image' => $filename]);
+                $result = joforder::create($request->except('upload_image') + ['upload_image' => '/img/artwork/'.$filename]);
             }
         }
         else {
@@ -221,7 +221,7 @@ class JOFController extends Controller
                 $filename = $randomString.'.'.$extension;
                 $path = public_path().'/img/artwork/'.$filename;
                 file_put_contents($path,$decoded);    
-                $result = joforder::where('id', $request->id)->update($request->except('upload_image') + ['upload_image' => $filename]);
+                $result = joforder::where('id', $request->id)->update($request->except('upload_image') + ['upload_image' => '/img/artwork/'.$filename]);
             }
         }
         else {
