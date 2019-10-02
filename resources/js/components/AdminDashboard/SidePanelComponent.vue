@@ -223,6 +223,12 @@
               </v-list-item-content>
             </v-list-item>
 
+              <v-list-item v-if="role==0 || role==10" class='navContent' href='/dispatching'>
+              <v-list-item-content>
+                <v-list-item-title class='navList'>Dispatching Section</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
 
           <v-list-item class='navContent' href='/jofstatus'>
           <v-list-item-content>

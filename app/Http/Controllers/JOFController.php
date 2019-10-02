@@ -48,7 +48,7 @@ class JOFController extends Controller
                 $status = "Finishing Section";
                 break; 
             case 10:
-                $status = "For Releasing";
+                $status = "For Delivery";
                 break; 
            }
         if(Auth::user()->role ==9){

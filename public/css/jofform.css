@@ -77,3 +77,54 @@ span.due-date {
     padding: 10px 0px 10px;
     border-bottom: 1px solid #cecece;
 }
+
+/* jof status */
+.trans{
+    -webkit-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Safari 4+ */
+    -moz-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Fx 5+ */
+    -o-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Opera 12+ */
+    animation: NAME-YOUR-ANIMATION 1s infinite;  /* IE 10+, Fx 29+ */
+  }
+  
+  @keyframes NAME-YOUR-ANIMATION {
+    0%, 49% {
+      background-color: transparent;
+      /* border: 3px solid #e50000; */
+    }
+    50%, 100% {
+      background-color: #e50000;
+    }
+  }
+  
+  .radiOPTS {
+      margin-top: 5px;
+      margin-left: 10px;
+  }
+  
+  /* 2 DAYS */
+  .transyellow{
+    background-color: #ffc107;
+  }
+  
+  /* 4DAYS */
+  .transblue{
+    background-color: #17a2b8;
+  }
+  /* 6 days */
+  .transgreen{
+    background-color: #28a745;
+  }
+  
+  .not_special{
+     background-color: #e0e0e000 !important;
+  }
+  .bg-dark {
+      color: #ffc107 !important;
+  }
+  .bg-done{
+    background-color:#286326;
+  }
+  .legends {
+      margin-left: 23px;
+      padding-top: 10px;
+  }
