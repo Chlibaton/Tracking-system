@@ -5,6 +5,16 @@
 button.my-12.v-btn.v-btn--contained.theme--dark.v-size--large.blue.lighten-2 {
     top: 5px;
 }
+.row.search-bar>div{
+    display: flex;
+}
+.row.search-bar>div>.v-input.my-12.theme--dark.v-text-field.v-text-field--is-booted.v-text-field--enclosed.v-text-field--outlined {
+    margin: 0px 15px;
+}
+.row.search-bar>div {
+    margin: auto;
+    width: 500px !important;
+}
 </style>
 
 <template>
@@ -15,7 +25,7 @@ button.my-12.v-btn.v-btn--contained.theme--dark.v-size--large.blue.lighten-2 {
     </v-toolbar>
     <v-content>
       <section>
-        <v-parallax src="img/hero.jpeg" height="600">
+        <v-parallax src="img/home-maxres.jpg" height="600">
           <v-layout
             column
             align-center
@@ -29,22 +39,10 @@ button.my-12.v-btn.v-btn--contained.theme--dark.v-size--large.blue.lighten-2 {
            
           </v-layout>
           <div class="container">
-            <div class="row">
-              <div class="col">
-              </div>
-              <div class="col-5">
+            <div class="row search-bar">
+              <div>
                 <v-text-field v-model="trackcode"  class="my-12" label="Type your Tracking no / Order Code" outlined dark></v-text-field>
-              </div>
-              <div class="col">
-                 <v-btn
-                     class="my-12"
-                      color="blue lighten-2"
-                      dark
-                      large
-                      @click='searchurl()'
-                    >
-                      Search
-                    </v-btn>
+                <v-btn class="my-12" color="blue lighten-2" dark large @click='searchurl()'> Search</v-btn>
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 <style scoped>
     .sidebarBackground{
-        background: black;
+        background: #343a40;
         top: 179px !important;
         overflow: auto;
         height: 100% !important;
@@ -22,7 +22,7 @@
     max-width: 100%;
     }
     header.m-header {
-        background-image: linear-gradient(to right, #fff138 30%, #e83530);
+        background: #1a75bc !important;
     }
     header.m-header {
         display: flex;
@@ -34,6 +34,8 @@
     .m-title {
         text-align: center;
         margin-top: 10px;
+        margin: auto;
+        color: white !important;
     }
     .m-title>p>ul {
         display: inline-flex;

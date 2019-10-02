@@ -536,6 +536,7 @@ class ComposerStaticInit6003c13d7a72743c9eaae61ec5497f9c
     public static $classMap = array (
         'App\\Broadcasting\\jofstatus' => __DIR__ . '/../..' . '/app/Broadcasting/jofstatus.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Distributors' => __DIR__ . '/../..' . '/app/Distributors.php',
         'App\\Events\\JOFStatus' => __DIR__ . '/../..' . '/app/Events/JOFStatus.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -544,6 +545,7 @@ class ComposerStaticInit6003c13d7a72743c9eaae61ec5497f9c
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DistributorController' => __DIR__ . '/../..' . '/app/Http/Controllers/DistributorController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\JOFController' => __DIR__ . '/../..' . '/app/Http/Controllers/JOFController.php',
         'App\\Http\\Controllers\\JofFormController' => __DIR__ . '/../..' . '/app/Http/Controllers/JofFormController.php',

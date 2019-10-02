@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Broadcasting\\jofstatus' => $baseDir . '/app/Broadcasting/jofstatus.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\Distributors' => $baseDir . '/app/Distributors.php',
     'App\\Events\\JOFStatus' => $baseDir . '/app/Events/JOFStatus.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -16,6 +17,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\DistributorController' => $baseDir . '/app/Http/Controllers/DistributorController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\JOFController' => $baseDir . '/app/Http/Controllers/JOFController.php',
     'App\\Http\\Controllers\\JofFormController' => $baseDir . '/app/Http/Controllers/JofFormController.php',
