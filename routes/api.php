@@ -23,6 +23,12 @@ Route::get('/user','UserController@index');
 Route::post('/usercreate','UserController@register');
 Route::put('/userupdate','UserController@update');
 Route::delete('/userdelete/{id}','UserController@destroy');
+// Distributor
+Route::get('/generateCode','DistributorController@generateCode');
+// Route::get('/distributorInit','DistributorController@index');
+Route::post('/distributorCreate','DistributorController@create');
+Route::put('/distributorUpdate','DistributorController@update');
+Route::delete('/distributorDelete/{id}','DistributorController@destroy');
 
 // JOF Order
 // Route::get('/JOFinit/{id}','JOFController@index');
@@ -31,6 +37,7 @@ Route::put('/JOFupdate','JOFController@update');
 Route::delete('/JOFdelete/{id}','JOFController@destroy');
 // get number series
 Route::get('/getSeries','JOFController@getSeries');
+
 
 Route::post('/JOFupdateStatus','JOFController@updateStatus');
 

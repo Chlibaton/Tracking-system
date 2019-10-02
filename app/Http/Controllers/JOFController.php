@@ -140,7 +140,7 @@ class JOFController extends Controller
                 $filename = $randomString.'.'.$extension;
                 $path = public_path().'/img/artwork/'.$filename;
                 file_put_contents($path,$decoded);    
-                $result = joforder::create($request->except('upload_image') + ['upload_image' => $filename]);
+                $result = joforder::create($request->except('upload_image') + ['upload_image' => '/img/artwork/'.$filename]);
             }
         }
         else {
@@ -221,7 +221,7 @@ class JOFController extends Controller
                 $filename = $randomString.'.'.$extension;
                 $path = public_path().'/img/artwork/'.$filename;
                 file_put_contents($path,$decoded);    
-                $result = joforder::where('id', $request->id)->update($request->except('upload_image') + ['upload_image' => $filename]);
+                $result = joforder::where('id', $request->id)->update($request->except('upload_image') + ['upload_image' => '/img/artwork/'.$filename]);
             }
         }
         else {
@@ -281,6 +281,12 @@ class JOFController extends Controller
         $datenow = Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-DD');
         $datesevendays = Carbon::now('GMT+8:00')->addDays(7)->isoFormat('YYYY-MM-DD');
         $result = joforder::whereBetween('due_date',[$datenow,$datesevendays])->orderBy('due_date','asc')->get()->all();
+        return $result;  
+    }
+    public function getTracking($id){
+        $result = joforder::where('distributor_code',$id)
+        ->orWhere('refno',$id)
+        ->orderBy('refno','desc')->get(['refno','distributor_code','kind_of_ring','date_prepared','due_date','jof_status']);
         return $result;  
     }
 }

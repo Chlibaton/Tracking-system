@@ -288,11 +288,11 @@ img.preview {
                     </div>
                     <br>
                     <div class="row ring-att">
-                        <div class="col remarks">Remarks: See Attach Artwork</div>
+                        <div class="col remarks">{{detailItems.attach_remarks}}</div>
                     </div>
                     <div class="row ring-attachment">
                         <div class="col-2"></div>
-                        <div class="col-8 ring-img"><img :src="'/img/artwork/' + detailItems.upload_image" class="img-fluid" alt="Ring Image"></div>
+                        <div class="col-8 ring-img"><img :src="detailItems.upload_image" class="img-fluid" alt="Ring Image"></div>
                         <div class="col-2"></div>
                     </div>
                     <br><br>
@@ -366,7 +366,8 @@ img.preview {
       jof_form: false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
-        { text: 'Order#', value: 'orderno',  },
+        { text: 'REF#', value: 'refno',  },
+        { text: 'distributor_code', value: 'distributor_code',  },
         { text: 'Distributor Name', value: 'distributor_name',  },
         { text: 'Customer Name', value: 'customer_name',  },
         { text: 'Date Prepared', value: 'date_prepared',  },
@@ -462,8 +463,8 @@ img.preview {
         console.log(date_diff_indays(activedate,newdate))
         if (new Date(datenow) > duedate) return 'trans'
         else if (item.active_date==null) return 'none'
-        else if (date_diff_indays(activedate,newdate)==2) return 'transyellow'
-        else if (date_diff_indays(activedate,newdate)==4) return 'transblue'
+        else if (date_diff_indays(activedate,newdate)>=2&&date_diff_indays(activedate,newdate)<=3) return 'transyellow'
+        else if (date_diff_indays(activedate,newdate)>=4&&date_diff_indays(activedate,newdate)<=5) return 'transblue'
         else if (date_diff_indays(activedate,newdate)>=6) return 'transgreen'
         else return 'none'
         // else return 'green'
@@ -502,31 +503,7 @@ img.preview {
         this.detailItems = item
       },
       print(){
-        const prtHtml = document.getElementById('printjof').innerHTML;
-
-        // Get all stylesheets HTML
-        let stylesHtml = '';
-        for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
-        stylesHtml += node.outerHTML;
-        }
-
-        // Open the print window
-        const WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-
-        WinPrint.document.write(`<!DOCTYPE html>
-        <html>
-        <head>
-            ${stylesHtml}
-        </head>
-        <body>
-            ${prtHtml}
-        </body>
-        </html>`);
-
-        WinPrint.document.close();
-        WinPrint.focus();
-        WinPrint.print();
-        WinPrint.close();
+        this.$htmlToPaper('printjof');
       }
     },
    

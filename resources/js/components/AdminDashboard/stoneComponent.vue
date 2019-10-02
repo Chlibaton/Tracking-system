@@ -154,6 +154,7 @@ img.preview {
             <label class='bg-info textpads'>4 Days Delay</label>
             <label class='bg-success textpads'>6+ Days Delay</label>
             <label class='bg-danger textpads'>7 Day Due Date</label>
+            <label class='bg-dark textpads'>Special Order</label>
           </div>
         </template>
          <template v-slot:item.jofno="{ item }" > 
@@ -253,8 +254,8 @@ img.preview {
         var newdate = year + "-" + month + "-" + day;
         console.log(date_diff_indays(activedate,newdate))
         if (new Date(datenow) > duedate) return 'trans'
-        else if (date_diff_indays(activedate,newdate)==2) return 'transyellow'
-        else if (date_diff_indays(activedate,newdate)==4) return 'transblue'
+        else if (date_diff_indays(activedate,newdate)>=2&&date_diff_indays(activedate,newdate)<=3) return 'transyellow'
+        else if (date_diff_indays(activedate,newdate)>=4&&date_diff_indays(activedate,newdate)<=5) return 'transblue'
         else if (date_diff_indays(activedate,newdate)>=6) return 'transgreen'
         else return 'none'
         // else return 'green'

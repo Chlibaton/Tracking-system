@@ -2,6 +2,8 @@ const sidePanel = require('./components/AdminDashboard/SidePanelComponent.vue').
 const systemUser = require('./components/AdminDashboard/SystemUserComponent.vue').default;
 const superAdmin = require('./components/AdminDashboard/SuperAdminComponent.vue').default;
 
+// distributors Maintenance
+const distributors = require('./components/AdminDashboard/distributorsComponent.vue').default;
 // departments
 const joforder = require('./components/AdminDashboard/JOForderComponent.vue').default;
 const receiving = require('./components/AdminDashboard/receivingComponent.vue').default;
@@ -15,7 +17,7 @@ const jofexport = require('./components/AdminDashboard/JOFexportComponent.vue').
 const jofform = require('./components/AdminDashboard/JOFFormComponent.vue').default;
 
 
-const changepass = require('./components/UserSide/ChangePasswordComponent.vue').default;
+ const trackingStatus = require('./components/UserSide/TrackingStatusComponent.vue').default;
 const landingPage = require('./components/Landing/HomeComponent.vue').default;
 const registerPage = require('./components/Landing/RegisterComponent.vue').default;
 
@@ -47,6 +49,11 @@ export default{
         { path: '/', name:'superadmin', component: jofstatus, 
         meta: { 
             title: "Dashboard" 
+            } 
+        },
+        { path: '/distributors', name:'distributors', component: distributors, 
+        meta: { 
+            title: "Distributors" 
             } 
         },
         { path: '/joforder', name:'joforder', component: joforder, 

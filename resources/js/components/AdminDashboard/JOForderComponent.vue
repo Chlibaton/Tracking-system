@@ -54,6 +54,7 @@ img.preview {
 .bg-dark {
     color: #ffc107 !important;
 }
+
 </style>
 
 
@@ -93,8 +94,14 @@ img.preview {
                    <v-flex xs6>
                      <v-switch v-model="switch1" label="Special Order"></v-switch>
                   </v-flex>
-                    <v-flex xs12>
+                    <!-- <v-flex xs12>
                     <v-text-field v-model="editedItem.distributor_name" label="Distributor Name" ></v-text-field>
+                  </v-flex> -->
+                  <v-flex xs6>
+                        <v-select  v-model="editedItem.distributor_name" :items="distributor" @change="displayDetails"  item-text="distributor_name" item-value="distributor_name" label="Select Distributor" outlined></v-select>
+                  </v-flex>
+                  <v-flex xs6>
+                   <v-text-field v-model="editedItem.distributor_code" filled readonly label="Distributor Code" ></v-text-field>
                   </v-flex>
                   <v-flex xs12>
                     <v-text-field v-model="editedItem.customer_name" label="Customer Name" ></v-text-field>
@@ -192,6 +199,9 @@ img.preview {
                        <v-card-title>Attach Artwork</v-card-title>
                         <v-card-text>
                             <v-layout wrap>
+                          <v-flex xs12>
+                            <v-textarea v-model="editedItem.attach_remarks" label="Remarks"  hint="Attachment Remarks"></v-textarea>
+                        </v-flex>
                          <v-flex xs12>
                             <v-label>Upload Photo</v-label>
                             <input type="file" @change="uploadImage" accept="image/*">
@@ -269,6 +279,7 @@ img.preview {
           jofno:'',
           refno:''
       },
+      distributor:[],
       activeuser:{},
       numberseries:{},
       seriesbtn:false,
@@ -296,10 +307,18 @@ img.preview {
     },
 
     async mounted(){
+      // JOF ORder
         axios.get('/JOFinit/1')
         .then((response)=>{
             this.dataItems = response.data
         })
+      // Distributor
+         axios.get('/distributorInit')
+        .then((response)=>{
+            this.distributor = response.data
+            console.log(this.distributor)
+        })
+      // Auth user
         axios.get('/getUser')
         .then((response)=>{
            this.activeuser = response.data
@@ -394,11 +413,11 @@ img.preview {
            seriesno = year+('00000'+incrementSeries).slice(-5);
             this.numberseries.seriesno = seriesno
            this.editedItem.jofno = seriesno
-           this.editedItem.refno = 'REF#'+seriesno
+           this.editedItem.refno = 'TR-'+seriesno
             this.editedItem.newseries =seriesno
 
             this.defaultItem.jofno = seriesno
-            this.defaultItem.refno = 'REF#'+seriesno
+            this.defaultItem.refno = 'TR-'+seriesno
             this.defaultItem.newseries =seriesno
 
             this.seriesbtn = true
@@ -414,6 +433,11 @@ img.preview {
           }
           reader.readAsDataURL(input.files[0]);
       }
+      },
+      // distributor details
+      displayDetails(){
+        var selectedId = this.distributor.findIndex(x => x.distributor_name === this.editedItem.distributor_name)
+        this.editedItem.distributor_code = this.distributor[selectedId].distributor_code
       },
        
     },

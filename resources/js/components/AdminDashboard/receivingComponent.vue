@@ -138,6 +138,7 @@ img.preview {
     async mounted(){
         axios.get('/JOFinit/1')
         .then((response)=>{
+          console.log(response.data)
             this.dataItems = response.data
         })
         Echo.channel('jofstatus')
