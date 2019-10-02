@@ -129,6 +129,7 @@ img.preview {
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-spacer></v-spacer>
+       <!-- <v-btn color="primary" v-on:click="printstatus()" dark class="mb-2">PRINT JOF LIST</v-btn> -->
       <!-- Modal Tracking -->
       <v-dialog v-model="tracking">
             <v-data-table :headers="trackingHeader" :items="trackingItems" class="elevation-1" loading="true">
@@ -288,7 +289,7 @@ img.preview {
                     </div>
                     <br>
                     <div class="row ring-att">
-                        <div class="col remarks">{{detailItems.attach_remarks}}</div>
+                        <div class="col remarks">REMARKS :{{detailItems.attach_remarks}}</div>
                     </div>
                     <div class="row ring-attachment">
                         <div class="col-2"></div>
@@ -504,7 +505,7 @@ img.preview {
       },
       print(){
         this.$htmlToPaper('printjof');
-      }
+      },
     },
    
    

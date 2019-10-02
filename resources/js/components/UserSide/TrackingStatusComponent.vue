@@ -67,7 +67,8 @@ button.my-12.v-btn.v-btn--contained.theme--dark.v-size--large.blue.lighten-2 {
                       <template v-slot:item.jof_status="{ item }" > 
                         <v-chip class="chip" v-if="item.jof_status == 'Receiving Section'"> ORDERED RECEIVED</v-chip> 
                         <v-chip class="chip" v-else-if="item.jof_status == 'Mold Section'|| item.jof_status == 'Casting Section' || item.jof_status == 'Stone Section' || item.jof_status == 'Finishing Section'" >PROCESSING</v-chip> 
-                        <v-chip class="chip" v-else-if="item.jof_status == 'DONE'" >FOR DELIVERY</v-chip> 
+                        <v-chip class="chip" v-else-if="item.jof_status == 'Done'" >DELIVERED</v-chip> 
+                        <v-chip class="chip" v-else>{{item.jof_status}}</v-chip>
                     </template>
               </v-data-table>
           </v-flex>
