@@ -173,23 +173,23 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="role==0 || role==9" class='navContent' href='/distributors'>
+        <v-list-item v-if="role==0 || role==9 || role==11" class='navContent' href='/distributors'>
           <v-list-item-content>
             <v-list-item-title class='navList'>Distributors</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="role==0 || role==9"  class='navContent' href='/joforder'>
+        <v-list-item v-if="role==0 || role==9 || role==11"  class='navContent' href='/joforder'>
           <v-list-item-content>
             <v-list-item-title class='navList'>JOF Orders </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-         <v-list-item v-if="role==0 || role==1"  class='navContent' href='/receiving'>
+         <v-list-item v-if="role==0 || role==1 || role==11"  class='navContent' href='/receiving'>
           <v-list-item-content>
             <v-list-item-title class='navList'>Receiving Section</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="role==0 || role==2"   class='navContent' href='/mold'>
+        <v-list-item v-if="role==0 || role==2 || role==11"   class='navContent' href='/mold'>
           <v-list-item-content>
             <v-list-item-title class='navList'>Mold Section</v-list-item-title>
           </v-list-item-content>
@@ -205,7 +205,7 @@
           </v-list-item-content>
         </v-list-item> -->
 
-           <v-list-item v-if="role==0 || role==5" class='navContent' href='/casting'>
+           <v-list-item v-if="role==0 || role==5 || role==11" class='navContent' href='/casting'>
           <v-list-item-content>
             <v-list-item-title class='navList'>Casting Section</v-list-item-title>
           </v-list-item-content>
@@ -217,19 +217,19 @@
           </v-list-item-content>
         </v-list-item> -->
 
-          <v-list-item v-if="role==0 || role==7" class='navContent' href='/stone'>
+          <v-list-item v-if="role==0 || role==7 || role==11" class='navContent' href='/stone'>
           <v-list-item-content>
             <v-list-item-title class='navList'>Stone Section</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
-          <v-list-item v-if="role==0 || role==8" class='navContent' href='/finishing'>
+          <v-list-item v-if="role==0 || role==8 || role==11" class='navContent' href='/finishing'>
               <v-list-item-content>
                 <v-list-item-title class='navList'>Finishing Section</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
 
-              <v-list-item v-if="role==0 || role==10" class='navContent' href='/dispatching'>
+              <v-list-item v-if="role==0 || role==10 || role==11" class='navContent' href='/dispatching'>
               <v-list-item-content>
                 <v-list-item-title class='navList'>Dispatching Section</v-list-item-title>
               </v-list-item-content>
@@ -238,7 +238,7 @@
 
         
 
-        <v-list-item class='navContent' v-if="role==0" href='/jofexport'>
+        <v-list-item class='navContent' v-if="role==0 || role==11" href='/jofexport'>
           <v-list-item-content>
             <v-list-item-title class='navList'>7-Day Due Date</v-list-item-title>
           </v-list-item-content>

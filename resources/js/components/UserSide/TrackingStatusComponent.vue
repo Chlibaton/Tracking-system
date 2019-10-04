@@ -31,7 +31,8 @@ th{
     </v-toolbar>
     <v-content>
       <section>
-        <v-parallax src="img/home-maxres.jpg" height="600">
+        <!-- <v-parallax src="img/home-maxres.jpg" height="600"> -->
+        <v-parallax class='bg-dark' height="600">
           <v-layout
             column
             align-center
