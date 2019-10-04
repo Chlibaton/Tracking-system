@@ -110,9 +110,10 @@ class JOFController extends Controller
      */
     public function create(Request $request)
     {
+  
         event(new JOFStatus('event on update'));
-        // $result = joforder::create($request->all());
-        // return $result;
+        // // $result = joforder::create($request->all());
+        // // return $result;
         if($request->upload_image !== null) {
             $exploded = explode(',',$request->upload_image);
             $decoded = base64_decode($exploded[1]);
@@ -124,29 +125,23 @@ class JOFController extends Controller
             {
                 $extension = 'png';
             }
-
-            if(joforder::where('upload_image', $request->upload_image)->exists())
-                $result = false;
-            else {
-                //generate random strings
-                $length= 10;
-                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $charactersLength = strlen($characters);
-                $randomString = '';
-                for ($i = 0; $i < $length; $i++) {
-                    $randomString .= $characters[rand(0, $charactersLength - 1)];
-                }
-                // set all details
-                $filename = $randomString.'.'.$extension;
-                $path = public_path().'/img/artwork/'.$filename;
-                file_put_contents($path,$decoded);    
-                $result = joforder::create($request->except('upload_image') + ['upload_image' => '/img/artwork/'.$filename]);
+            //generate random strings
+            $length= 10;
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
             }
+            // set all details
+            $filename = $randomString.'.'.$extension;
+            $path = public_path().'/img/artwork/'.$filename;
+            file_put_contents($path,$decoded);    
+             $result = joforder::create($request->except('upload_image') + ['upload_image' => '/img/artwork/'.$filename]);            
         }
         else {
-            $result = joforder::create($request->all());
+             $result = joforder::create($request->all());
         }
-        return $result;
     }
 
 
@@ -208,7 +203,6 @@ class JOFController extends Controller
                 {
                     $extension = 'png';
                 }
-
                 //generate random strings
                 $length= 10;
                 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

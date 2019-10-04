@@ -109,6 +109,9 @@ img.preview {
 .bg-dark {
     color: #ffc107 !important;
 }
+th {
+    font-size: 17px !important;
+}
 </style>
 
 

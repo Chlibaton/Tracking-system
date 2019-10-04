@@ -4,6 +4,9 @@
     color: rgba(0,0,0,.87);
     margin: 10px;
 }
+th {
+    font-size: 17px !important;
+}
 </style>
 
 

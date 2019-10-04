@@ -167,6 +167,12 @@
           </v-list-item-content>
         </v-list-item>
 
+          <v-list-item class='navContent' href='/jofstatus'>
+          <v-list-item-content>
+            <v-list-item-title class='navList'>List of Orders</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item v-if="role==0 || role==9" class='navContent' href='/distributors'>
           <v-list-item-content>
             <v-list-item-title class='navList'>Distributors</v-list-item-title>
@@ -230,15 +236,11 @@
             </v-list-item>
 
 
-          <v-list-item class='navContent' href='/jofstatus'>
-          <v-list-item-content>
-            <v-list-item-title class='navList'>JOF Status</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        
 
         <v-list-item class='navContent' v-if="role==0" href='/jofexport'>
           <v-list-item-content>
-            <v-list-item-title class='navList'>7-Day Due Status</v-list-item-title>
+            <v-list-item-title class='navList'>7-Day Due Date</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
        
@@ -259,7 +261,7 @@
 </v-app>
 </template>
 
-<<script>
+<script>
 export default {
     data(){
         return {

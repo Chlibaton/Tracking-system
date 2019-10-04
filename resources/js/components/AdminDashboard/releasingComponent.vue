@@ -46,6 +46,9 @@ img.preview {
     background-color: #e50000;
   }
 }
+th {
+    font-size: 17px !important;
+}
 
 </style>
 

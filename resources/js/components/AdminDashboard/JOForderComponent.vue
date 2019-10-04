@@ -54,6 +54,9 @@ img.preview {
 .bg-dark {
     color: #ffc107 !important;
 }
+th {
+    font-size: 17px !important;
+}
 
 </style>
 
@@ -83,7 +86,7 @@ img.preview {
               <v-container grid-list-md>
                 <v-layout wrap>
                     <v-flex xs6>
-                   <v-text-field v-model="editedItem.refno" filled readonly label="Reference No" ></v-text-field>
+                   <v-text-field v-model="editedItem.refno" filled readonly label="Order No" ></v-text-field>
                   </v-flex>
                   <v-flex xs6>
                    <v-text-field v-model="editedItem.jofno" filled readonly label="JOF#" ></v-text-field>
@@ -137,35 +140,36 @@ img.preview {
                             <v-text-field v-model="editedItem.kind_of_ring" label="Kind Of Ring"></v-text-field>
                         </v-flex>
                          <v-layout wrap>
+                          <v-flex xs6>
+                            <v-text-field v-model="editedItem.stone" label="Stone"></v-text-field>
+                        </v-flex>
                         <v-flex xs6>
                             <v-text-field v-model="editedItem.metal" label="Metal"></v-text-field>
                         </v-flex>
-                        <v-flex xs6>
-                            <v-text-field v-model="editedItem.stone" label="Stone"></v-text-field>
-                        </v-flex>
+                    
                          <v-flex xs6>
                             <v-text-field v-model="editedItem.ring_size" label="Ring Size"></v-text-field>
                         </v-flex>
-                        <v-flex xs6>
-                            <!-- <v-text-field v-model="editedItem.bridge" label="Bridge"></v-text-field> -->
+                        <!-- <v-flex xs6>
+                            <v-text-field v-model="editedItem.bridge" label="Bridge"></v-text-field>
                         </v-flex>
                          <v-flex xs6>
                             <v-text-field v-model="editedItem.year" label="Year"></v-text-field>
+                        </v-flex> -->
+                          <v-flex xs6>
+                            <v-text-field v-model="editedItem.karat" label="Karat"></v-text-field>
+                        </v-flex>
+                         <v-flex xs6>
+                            <v-text-field v-model="editedItem.text_style" label="Text Style"></v-text-field>
                         </v-flex>
                         <v-flex xs6>
                             <v-text-field v-model="editedItem.weight" label="Weight"></v-text-field>
                         </v-flex>
-                          <v-flex xs6>
-                            <v-text-field v-model="editedItem.karat" label="Karat"></v-text-field>
+                        <v-flex xs6>
+                            <v-text-field v-model="editedItem.inside_engrave" label="Inside Engrave"></v-text-field>
                         </v-flex>
                         <v-flex xs6>
                             <v-text-field v-model="editedItem.oxidation" label="Oxidation"></v-text-field>
-                        </v-flex>
-                        <v-flex xs6>
-                            <v-text-field v-model="editedItem.text_style" label="Text Style"></v-text-field>
-                        </v-flex>
-                        <v-flex xs6>
-                            <v-text-field v-model="editedItem.inside_engrave" label="Inside Engrave"></v-text-field>
                         </v-flex>
                          <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.quantity" label="Quantity"></v-text-field>
@@ -204,6 +208,7 @@ img.preview {
                         </v-flex>
                          <v-flex xs12>
                             <v-label>Upload Photo</v-label>
+                             <!-- <v-file-input @change="uploadImage" accept="image/*" label="Attach Image" name="upload_image"></v-file-input> -->
                             <input type="file" @change="uploadImage" accept="image/*">
                         </v-flex>
                             </v-layout>
@@ -260,6 +265,7 @@ img.preview {
       switch1:false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
+        { text: 'Distributor Code', value: 'distributor_code',  },
         { text: 'Distributor Name', value: 'distributor_name',  },
         { text: 'Customer Name', value: 'customer_name',  },
         { text: 'Date Prepared', value: 'date_prepared',  },

@@ -54,6 +54,9 @@ img.preview {
 .bg-dark {
     color: #ffc107 !important;
 }
+th {
+    font-size: 17px !important;
+}
 </style>
 
 
@@ -102,6 +105,7 @@ img.preview {
       menu2:false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
+        { text: 'distributor_code', value: 'distributor_code',  },
         { text: 'Distributor Name', value: 'distributor_name',  },
         { text: 'Customer Name', value: 'customer_name',  },
         { text: 'Kind of Ring', value: 'kind_of_ring',  },

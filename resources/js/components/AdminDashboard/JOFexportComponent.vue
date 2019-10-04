@@ -51,6 +51,9 @@ img.preview {
 .radiOPTS {
     margin-left: 10px;
 }
+th {
+    font-size: 17px !important;
+}
 
 </style>
 

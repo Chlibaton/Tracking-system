@@ -112,11 +112,17 @@ img.preview {
     color: #ffc107 !important;
 }
 .bg-done{
-  background-color:#286326;
+  background-color:#738c86;
+}
+.bg-pending{
+  background-color:#b847ab;
 }
 .legends {
     margin-left: 23px;
     padding-top: 10px;
+}
+th {
+    font-size: 17px !important;
 }
 
 </style>
@@ -125,7 +131,7 @@ img.preview {
 <template>
 <div>
       <v-toolbar flat color="white">
-        <v-toolbar-title>JOF Status</v-toolbar-title>
+        <v-toolbar-title>LIST OF ORDERS - JOB ORDER FORM (JOF)</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-spacer></v-spacer>
@@ -146,7 +152,7 @@ img.preview {
               <v-container grid-list-md>
                 <v-layout wrap>
                    <v-flex xs12>Kind of Ring: <label>{{detailItems.kind_of_ring}}</label></v-flex>
-                   <v-flex xs6>Metal: <label>{{detailItems.metal}}</label></v-flex>
+                   
                     <v-flex xs6>Stone: <label>{{detailItems.stone}}</label></v-flex>
                     <v-flex xs6>Ring Size: <label>{{detailItems.ring_size}}</label></v-flex>
                     <v-flex xs6>Bridge: <label>{{detailItems.bridge}}</label></v-flex>
@@ -211,7 +217,7 @@ img.preview {
                             <div>Order Name:</div> 
                         </div>
                         <div class="col-4 order-details">
-                            <div>{{detailItems.distributor_name}}</div>
+                            <div>{{detailItems.distributor_code}}</div>
                             <div>{{detailItems.customer_name}}</div>
                             <div>{{detailItems.orderno}}</div>
 
@@ -238,30 +244,30 @@ img.preview {
                     </div>
                     <div class="row">
                         <div class="col-2 ring-details">
-                            <div>Metal :</div> 
-                            <div>Ring Size :</div> 
-                            <div>Year :</div> 
-                            <div>Karat :</div> 
-                            <div>Text Style :</div> 
-                        </div>
-                        <div class="col-4 ring-details">
-                            <div>{{detailItems.metal}}</div>
-                            <div>{{detailItems.ring_size}}</div>
-                            <div>{{detailItems.year}}</div>
-                            <div>{{detailItems.karat}}</div>
-                            <div>{{detailItems.text_style}}</div>
-                        </div>
-                        <div class="col-2 ring-details">
                             <div>Stone : </div> 
-                            <div>Weight :</div> 
-                            <div>Oxidation :</div>
+                            <div>Ring Size :</div> 
+                            <div>Text Style :</div> 
                             <div>Inside Engrave :</div>
+
                         </div>
                         <div class="col-4 ring-details">
                             <div>{{detailItems.stone}}</div>
+                            <div>{{detailItems.ring_size}}</div>
+                            <div>{{detailItems.text_style}}</div>
+                            <div>{{detailItems.inside_engrave}}</div>
+
+                        </div>
+                        <div class="col-2 ring-details">
+                           <div>Metal :</div> 
+                            <div>Karat :</div> 
+                            <div>Weight :</div> 
+                            <div>Oxidation :</div>
+                        </div>
+                        <div class="col-4 ring-details">
+                            <div>{{detailItems.metal}}</div>
+                            <div>{{detailItems.karat}}</div>
                             <div>{{detailItems.weight}}</div>
                             <div>{{detailItems.oxidation}}</div>
-                            <div>{{detailItems.inside_engrave}}</div>
                         </div>
                     </div>
                     <br>
@@ -328,16 +334,18 @@ img.preview {
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
         <template v-slot:top>
            <div class="legends">
+             <input type="radio" name="optradio" v-on:click="displayData('All')" :checked='radiobtns.pending'><label class=' bg-pending textpads'>Pending JOF Order</label>
+            <input type="radio" name="optradio" v-on:click="displayData('Done')" :checked='radiobtns.delivered'> <label class='bg-done textpads'>Done</label>
             <label class=' bg-warning textpads'>2 Days Delay</label>
             <label class='bg-info textpads'>4 Days Delay</label>
             <label class='bg-success textpads'>6+ Days Delay</label>
             <label class='bg-danger textpads'>7 Day Due Date</label>
             <label class='bg-dark textpads'>Special Order</label>
             </div>
-          <div class="radiOPTS">
+          <!-- <div class="radiOPTS">
             <input type="radio" name="optradio" v-on:click="displayData('All')" :checked='radiobtns.pending'><label class=' bg-primary textpads'>Pending JOF Order</label>
             <input type="radio" name="optradio" v-on:click="displayData('Done')" :checked='radiobtns.delivered'> <label class='bg-done textpads'>Done</label>
-          </div>
+          </div> -->
         </template>
             <template v-slot:item.jofno="{ item }" > 
             <v-chip v-if="item.sp_order==1" class="bg-dark" > {{ item.jofno }}</v-chip> 
@@ -367,9 +375,8 @@ img.preview {
       jof_form: false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
-        { text: 'REF#', value: 'refno',  },
-        { text: 'distributor_code', value: 'distributor_code',  },
-        { text: 'Distributor Name', value: 'distributor_name',  },
+        { text: 'Order#', value: 'refno',  },
+        { text: 'Distributor Code', value: 'distributor_code',  },
         { text: 'Customer Name', value: 'customer_name',  },
         { text: 'Date Prepared', value: 'date_prepared',  },
         { text: 'Due Date', value: 'due_date',  },

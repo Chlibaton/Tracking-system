@@ -99,10 +99,10 @@ class DistributorController extends Controller
             shuffle($numbers);
             return array_slice($numbers,0,1)[0];
         }
-            $randomCode = 'VYD'.(randomGen(100000,999999));
+            $randomCode = (randomGen(100000,999999));
             $checkexists = Distributors::where('distributor_code',$randomCode)->first();
             if($checkexists){
-                $randomCode = 'VYD'.(randomGen(100000,999999));
+                $randomCode = (randomGen(100000,999999));
             }
         return  $randomCode;
     }
