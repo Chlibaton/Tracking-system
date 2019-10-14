@@ -226,7 +226,7 @@ th {
 //methods
 
     methods: {
-            getColor (item) {
+        getColor (item) {
          var date_diff_indays = function(date1, date2) {
             var dt1 = new Date(date1);
             var dt2 = new Date(date2);

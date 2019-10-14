@@ -97,6 +97,9 @@ th {
                    <v-flex xs6>
                      <v-switch v-model="switch1" label="Special Order"></v-switch>
                   </v-flex>
+                   <v-flex xs12>
+                        <v-select  v-model="editedItem.kind_of_order" :items="kindoforder"  label="Select Order Type" outlined></v-select>
+                  </v-flex>
                     <!-- <v-flex xs12>
                     <v-text-field v-model="editedItem.distributor_name" label="Distributor Name" ></v-text-field>
                   </v-flex> -->
@@ -140,37 +143,58 @@ th {
                             <v-text-field v-model="editedItem.kind_of_ring" label="Kind Of Ring"></v-text-field>
                         </v-flex>
                          <v-layout wrap>
-                          <v-flex xs6>
-                            <v-text-field v-model="editedItem.stone" label="Stone"></v-text-field>
+                        <v-flex xs6>
+                           <v-select  v-model="editedItem.stone" :items="stones"  label="Select Stone Type" outlined></v-select>
                         </v-flex>
                         <v-flex xs6>
-                            <v-text-field v-model="editedItem.metal" label="Metal"></v-text-field>
+                            <v-text-field v-model="kind_stone" label="Stone" placeholder="Example: Aquamarine"></v-text-field>
                         </v-flex>
-                    
+                         
+                        <v-flex xs6>
+                          <v-select  v-model="editedItem.ring_size" :items="size_ring"  label="Select Ring Size" outlined></v-select>
+                        </v-flex>
                          <v-flex xs6>
-                            <v-text-field v-model="editedItem.ring_size" label="Ring Size"></v-text-field>
+                            <v-select  v-model="editedItem.metal" :items="metals"  label="Select Metal" outlined></v-select>
                         </v-flex>
+                        <!-- <v-flex xs6>
+                            <v-text-field v-model="editedItem.metal" label="Metal"></v-text-field>
+                        </v-flex> -->
+                      
+                         <!-- <v-flex xs6>
+                            <v-text-field v-model="editedItem.ring_size" label="Ring Size"></v-text-field>
+                        </v-flex> -->
+
                         <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.bridge" label="Bridge"></v-text-field>
                         </v-flex>
                          <v-flex xs6>
                             <v-text-field v-model="editedItem.year" label="Year"></v-text-field>
                         </v-flex> -->
-                          <v-flex xs6>
-                            <v-text-field v-model="editedItem.karat" label="Karat"></v-text-field>
-                        </v-flex>
                          <v-flex xs6>
+                            <v-select  v-model="editedItem.text_style" :items="textstyle"  label="Select Text Style" outlined></v-select>
+                      </v-flex>
+                          <v-flex xs6>
+                            <v-select  v-model="editedItem.karat" :items="karat"  label="Select Karat" outlined></v-select>
+                          </v-flex>
+                          <!-- <v-flex xs6>
+                            <v-text-field v-model="editedItem.karat" label="Karat"></v-text-field>
+                        </v-flex> -->
+                        
+                         <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.text_style" label="Text Style"></v-text-field>
-                        </v-flex>
+                        </v-flex> -->
                         <v-flex xs6>
                             <v-text-field v-model="editedItem.weight" label="Weight"></v-text-field>
                         </v-flex>
                         <v-flex xs6>
+                            <v-select  v-model="editedItem.oxidation" :items="oxidation"  label="Select Oxidation" outlined></v-select>
+                        </v-flex>
+                         <v-flex xs6>
                             <v-text-field v-model="editedItem.inside_engrave" label="Inside Engrave"></v-text-field>
                         </v-flex>
-                        <v-flex xs6>
+                        <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.oxidation" label="Oxidation"></v-text-field>
-                        </v-flex>
+                        </v-flex> -->
                          <!-- <v-flex xs6>
                             <v-text-field v-model="editedItem.quantity" label="Quantity"></v-text-field>
                         </v-flex> -->
@@ -258,6 +282,7 @@ th {
     data: () => ({
       dialog: false,
       valid:false,
+      kind_stone:'',
       search: '',
       show1:false,
       menu1:false,
@@ -265,6 +290,7 @@ th {
       switch1:false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
+        { text: 'Order Type', value: 'kind_of_order',  },
         { text: 'Distributor Code', value: 'distributor_code',  },
         { text: 'Distributor Name', value: 'distributor_name',  },
         { text: 'Customer Name', value: 'customer_name',  },
@@ -297,7 +323,14 @@ th {
       mask: '################',
       date1:new Date().toISOString().substr(0, 10),
       date2:new Date().toISOString().substr(0, 10),
-      // date2:new Date(new Date().getTime()+(120*24*60*60*1000)).toISOString().substr(0, 10),
+      stones:['Faceted','Smooth','Special'],
+      metals:['Vellum','Stainless Steel','Silver','Brass','Gold'],
+      karat:['Vellum','Stainless','925 Sterling Silver','Gold Plated','4K','6K','8K','10','12K','14K','18K','21K'],
+      kindoforder:['Local','Export'],
+      size_ring:['3.5','4','4.5','5','5.5','6','6.5','7','7.5','8','8.5','9','9.5','10','10.5',
+      '11','11.5','12','12.5','13','13.5','14','14.5','15','15.5','16','16.5','17'],
+      textstyle:['Bold','Script'],
+      oxidation:['Oxidized','Mild Oxidized','No Oxidize'],
     }),
     
     computed: {
@@ -363,6 +396,7 @@ th {
 
     async save (a) { 
         this.editedItem.created_by = this.activeuser.first_name+' '+ this.activeuser.last_name
+        this.editedItem.stone += ' '+this.kind_stone
         this.editedItem.sp_approve = 0
         if(this.switch1){
           this.editedItem.sp_order = 1

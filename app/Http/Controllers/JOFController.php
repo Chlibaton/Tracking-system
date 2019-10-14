@@ -280,7 +280,18 @@ class JOFController extends Controller
     public function getTracking($id){
         $result = joforder::where('distributor_code',$id)
         ->orWhere('refno',$id)
-        ->orderBy('refno','desc')->get(['refno','distributor_code','kind_of_ring','date_prepared','due_date','jof_status']);
+        ->orderBy('refno','desc')->get(['refno','distributor_code','kind_of_ring','date_prepared','due_date','jof_status','trackingno']);
         return $result;  
+    }
+    public function addTrackingno(Request $request){
+        event(new JOFStatus('event on update'));
+        joforder::where('id', $request->id)
+            ->orderby('id', 'desc')
+            ->take(1)
+            ->update([
+                'trackingno' =>$request->trackingno,
+                'active_date' =>Carbon::now('GMT+8:00')->isoFormat('YYYY-MM-D'),
+                ]);
+        return 'success';
     }
 }

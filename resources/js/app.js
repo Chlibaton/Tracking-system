@@ -26,7 +26,7 @@ const options = {
     ],
     styles: [
         'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-        '/css/jofform.css'
+        '/css/jofform.css',
       ]
   }
 

@@ -135,7 +135,7 @@ th {
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-spacer></v-spacer>
-       <!-- <v-btn color="primary" v-on:click="printstatus()" dark class="mb-2">PRINT JOF LIST</v-btn> -->
+       <v-btn color="primary" v-on:click="printstatus()" dark class="mb-2">PRINT JOF LIST</v-btn>
       <!-- Modal Tracking -->
       <v-dialog v-model="tracking">
             <v-data-table :headers="trackingHeader" :items="trackingItems" class="elevation-1" loading="true">
@@ -203,6 +203,7 @@ th {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-6 order-no">
+                          <div><span class="jof-no">Order type: {{detailItems.kind_of_order}}</span></div>
                         </div>
                         <div class="col-6 jof-no-div">
                             <div><span class="jof-no">JOF#: {{detailItems.jofno}}</span></div>
@@ -327,10 +328,20 @@ th {
           </div>
       </div>
         </v-dialog>
-        <!-- Modal JOF Details End -->
-
-
+  <!-- Modal JOF Details End -->
       </v-toolbar>
+        <v-card id="print" hidden>
+            <v-card-text>
+                <v-data-table
+                    :headers="Printheaders"
+                    :items="dataItems"
+                    :search="search" hide-default-footer
+                    :disable-pagination="true"
+                    id='printlist'
+                >
+                </v-data-table>
+            </v-card-text>
+        </v-card>
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
         <template v-slot:top>
            <div class="legends">
@@ -347,7 +358,7 @@ th {
             <input type="radio" name="optradio" v-on:click="displayData('Done')" :checked='radiobtns.delivered'> <label class='bg-done textpads'>Done</label>
           </div> -->
         </template>
-            <template v-slot:item.jofno="{ item }" > 
+            <template v-slot:item.jofno="{ item }"> 
             <v-chip v-if="item.sp_order==1" class="bg-dark" > {{ item.jofno }}</v-chip> 
             <v-chip v-else class="not_special"> {{ item.jofno }}</v-chip> 
           </template>
@@ -369,13 +380,15 @@ th {
 <script>
   export default {
     data: () => ({
+      printdialog:false,
       search: '',
       tracking:false,
       details:false,
       jof_form: false,
       headers: [
         { text: 'JOF#', value: 'jofno',  },
-        { text: 'Order#', value: 'refno',  },
+         { text: 'Order Type', value: 'kind_of_order',  },
+        { text: 'JOB Order#', value: 'refno',  },
         { text: 'Distributor Code', value: 'distributor_code',  },
         { text: 'Customer Name', value: 'customer_name',  },
         { text: 'Date Prepared', value: 'date_prepared',  },
@@ -384,6 +397,16 @@ th {
         { text: 'View Details', value: 'view_details', },
         { text: 'JOF History',value: 'jofaction', sortable: false },
 
+      ],
+      Printheaders: [
+        { text: 'JOF#', value: 'jofno',  },
+        { text: 'Order Type', value: 'kind_of_order',  },
+        { text: 'JOB Order#', value: 'refno',  },
+        { text: 'Distributor Name', value: 'distributor_name',  },
+        { text: 'Kind of Ring', value: 'kind_of_ring',  },
+        { text: 'Date Prepared', value: 'date_prepared',  },
+        { text: 'Due Date', value: 'due_date',  },
+        { text: 'JOF Status', value: 'jof_status', },
       ],
       trackingHeader:[
         { text: 'JOF#', value: 'jofno',  },
@@ -512,6 +535,9 @@ th {
       },
       print(){
         this.$htmlToPaper('printjof');
+      },
+      printstatus(){
+        this.$htmlToPaper('printlist');
       },
     },
    

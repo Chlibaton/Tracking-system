@@ -38,8 +38,9 @@ Route::delete('/JOFdelete/{id}','JOFController@destroy');
 // get number series
 Route::get('/getSeries','JOFController@getSeries');
 
-
+// Return Jof or Add Tracking no
 Route::post('/JOFupdateStatus','JOFController@updateStatus');
+Route::post('/JOFupdateTracking','JOFController@addTrackingno');
 
 Route::get('/JOFstatus','JOFController@JOFstatus');
 

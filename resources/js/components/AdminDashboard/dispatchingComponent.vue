@@ -114,10 +114,38 @@ th {
 <template>
 <div>
       <v-toolbar flat color="white">
-        <v-toolbar-title>Finishing Section</v-toolbar-title>
+        <v-toolbar-title>Dispatching Section</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-spacer></v-spacer>
+
+       <!-- ADD JOF TRACKING MODAL -->
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-form ref="form" v-model="valid" lazy-validation  @submit.prevent>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex xs12>
+                    <v-text-field v-model="editedItem.trackingno" label="Tracking No"></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+             </v-form>
+        </v-dialog>
+      <!--END  ADD JOF TRACKING MODAL -->
       </v-toolbar>
       <v-data-table :headers="headers" :items="dataItems" :search="search" class="elevation-1" >
         <template v-slot:top>
@@ -138,6 +166,7 @@ th {
           </template>
          <template v-slot:item.jofaction="{ item }">
             <div class="my-2">
+              <v-btn depressed small color="primary" @click="editItem(item)">ADD TRACKING NO</v-btn>
               <v-btn depressed small color="primary" @click="jofActions(item)">DELIVERED</v-btn>
             </div>
         </template>
@@ -153,6 +182,8 @@ th {
       search: '',
       headers: [
         { text: 'JOF#', value: 'jofno',  },
+        { text: 'Order Type', value: 'kind_of_order',  },
+        { text: 'Tracking No', value: 'trackingno',  },
         { text: 'Distributor Name', value: 'distributor_name',  },
         { text: 'Customer Name', value: 'customer_name',  },
         { text: 'Kind of Ring', value: 'kind_of_ring',  },
@@ -167,6 +198,17 @@ th {
       defaultItem:{},
       editedIndex: -1,
     }),
+
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? ' JOF TRACKING' : 'ADD TRACKING NO'
+      },
+    },
+    watch: {
+      dialog (val) {
+        val || this.close()
+      },
+    },
 
     async mounted(){
         axios.get('/JOFinit/10')
@@ -226,7 +268,33 @@ th {
               console.log(error.message);
             })
       },
-       
+// modal
+      editItem (item) {
+        this.editedIndex = this.dataItems.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialog = true
+      },
+      close (a) {
+        this.dialog = false
+        setTimeout(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        }, 300)
+      },
+      save(){
+          axios.post('/api/JOFupdateTracking/',this.editedItem)
+            .then(()=>{
+                axios.get('/JOFinit/10')
+                  .then((response)=>{
+                      this.dataItems = response.data
+                  })
+              })
+            .catch(error => {
+              console.log(error.message);
+            })
+        this.close()
+      }
+
     },
   }
 </script>

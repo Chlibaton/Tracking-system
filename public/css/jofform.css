@@ -128,3 +128,8 @@ span.due-date {
       margin-left: 23px;
       padding-top: 10px;
   }
+
+  td,th{
+      border: 1px solid;
+      padding:8px;
+  }

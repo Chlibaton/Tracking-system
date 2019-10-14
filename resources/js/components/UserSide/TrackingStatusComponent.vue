@@ -103,6 +103,7 @@ export default {
           search: '',
           headers:[
             { text: 'Order No', value: 'refno',},
+             { text: 'Tracking No', value: 'trackingno',},
             { text: 'Kind', value: 'kind_of_ring',  },
             { text: 'Date Prepared', value: 'date_prepared',  },
             { text: 'Due Date', value: 'due_date',  },

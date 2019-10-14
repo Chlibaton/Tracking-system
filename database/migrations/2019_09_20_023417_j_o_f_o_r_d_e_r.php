@@ -17,6 +17,7 @@ class JOFORDER extends Migration
             $table->bigIncrements('id');
             $table->string('refno')->nullable();
             $table->string('orderno')->nullable();
+            $table->string('kind_of_order')->nullable();
             $table->string('jofno')->nullable();
             $table->string('distributor_name')->nullable();
             $table->string('distributor_code')->nullable();
