@@ -12,5 +12,5 @@ class Joforder extends Model
         'left_shank','top_shank','right_shank','attach_remarks','upload_image','remarks','sp_order','sp_approve'
     ];
     protected $primaryKey = 'id';
-    protected $table = 'JOFORDER';
+    protected $table = 'joforder';
 }

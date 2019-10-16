@@ -366,6 +366,7 @@ th {
         })
           Echo.channel('jofstatus')
         .listen('JOFStatus', (e) => {
+          console.log(e)
              axios.get('/JOFinit/1')
               .then((response)=>{
                   this.dataItems = response.data

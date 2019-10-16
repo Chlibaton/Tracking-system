@@ -456,12 +456,13 @@ th {
 
           // mas live to
         Echo.channel('jofstatus')
-        .listen('JOFStatus', (e) => {
-               axios.get('/JOFPending')
-              .then((response)=>{
-                this.jofData.Pending = response.data
-                this.dataItems =  response.data
-              })
+        .listen('.JOFStatus', (e) => {
+          console.log(e)
+              //  axios.get('/JOFPending')
+              // .then((response)=>{
+              //   this.jofData.Pending = response.data
+              //   this.dataItems =  response.data
+              // })
             // axios.get('/JOFDelivered')
             // .then((response)=>{
             //       this.jofData.Delivered = response.data
